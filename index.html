@@ -2,41 +2,42 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Aprenda Brincando!</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       background-color: #f0f8ff;
       margin: 0;
-      padding: 15px;
+      padding: 10px;
       text-align: center;
       color: #2c3e50;
+      touch-action: manipulation;
     }
 
-    h1 { margin-top: 5px; color: #6c5ce7; }
+    h1 { margin-top: 5px; color: #6c5ce7; font-size: 24px; }
 
     .painel-topo {
       background: #ffffff;
-      padding: 12px;
+      padding: 10px;
       border-radius: 12px;
       max-width: 800px;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 15px auto;
       box-shadow: 0 4px 8px rgba(0,0,0,0.08);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
     }
 
     .placar-box { color: #00b894; }
 
-    /* MENU DE SELEÇÃO DE JOGOS */
+    /* MENU DE JOGOS */
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
       max-width: 850px;
       margin: 0 auto;
     }
@@ -45,46 +46,33 @@
       background-color: #ffffff;
       border: 3px solid #74b9ff;
       border-radius: 16px;
-      padding: 20px 10px;
+      padding: 15px 8px;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.2s;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .card-jogo:hover {
-      transform: scale(1.05) translateY(-5px);
-      background-color: #ffeaa7;
-      border-color: #fdcb6e;
-    }
-
     .card-jogo:active { transform: scale(0.95); }
-
-    .card-jogo .icone { 
-      font-size: 45px; 
-      margin-bottom: 8px;
-      transition: transform 0.3s;
-    }
-
-    .card-jogo:hover .icone { transform: rotate(10deg) scale(1.2); }
-    .card-jogo .titulo { font-size: 18px; font-weight: bold; color: #2d3436; }
+    .card-jogo .icone { font-size: 38px; margin-bottom: 5px; }
+    .card-jogo .titulo { font-size: 15px; font-weight: bold; color: #2d3436; }
 
     /* TELA DA ATIVIDADE */
     .tela-atividade {
       display: none;
       background: white;
-      padding: 20px;
+      padding: 15px;
       max-width: 750px;
       margin: 0 auto;
       border-radius: 16px;
       box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-      animation: aparecer 0.4s ease-out;
+      animation: aparecer 0.3s ease-out;
     }
 
     @keyframes aparecer {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -92,121 +80,147 @@
       background-color: #ff7675;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 8px 16px;
+      font-size: 15px;
       font-weight: bold;
       border-radius: 20px;
       cursor: pointer;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      margin-bottom: 12px;
     }
-
-    .btn-voltar:hover { transform: scale(1.08); }
 
     .jogo-box {
       background-color: #ffeaa7;
       border-radius: 12px;
-      padding: 20px;
-      margin: 15px auto;
-    }
-
-    .btn-audio {
-      background-color: #ff7675;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 22px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: transform 0.2s;
-    }
-
-    .opcoes-grid {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
+      padding: 15px;
+      margin: 10px auto;
     }
 
     .btn-opcao {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
-      padding: 10px 18px;
+      padding: 10px 16px;
       background-color: #74b9ff;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      margin: 5px;
     }
 
-    .btn-opcao:hover {
-      transform: translateY(-3px) scale(1.05);
-      background-color: #0984e3;
+    /* ESTILOS MONTAR PALAVRAS (RITMO) */
+    .container-silabas-ritmo {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
     }
 
-    /* ESTILOS QUAL É A SÍLABA (NOVO) */
-    .display-palavra-silaba {
+    .card-silaba-ritmo {
+      background: white;
+      border: 3px solid #6c5ce7;
+      border-radius: 12px;
+      padding: 10px;
+      min-width: 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
     }
 
-    .figura-grande { font-size: 80px; margin: 10px 0; }
+    .texto-silaba { font-size: 26px; font-weight: bold; color: #2d3436; }
+    .ponto-ritmo { width: 18px; height: 18px; border-radius: 50%; margin-top: 6px; }
 
-    .caixas-silabas {
+    .grid-figuras-montar {
       display: flex;
-      gap: 10px;
       justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
     }
 
-    .caixa-silaba {
-      width: 80px;
-      height: 80px;
-      border: 3px solid #2d3436;
+    .card-figura-montar {
       background: white;
+      border: 3px solid #dfe6e9;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 45px;
+      cursor: pointer;
+    }
+
+    /* ESTILOS FORMAR SÍLABAS (MÚSICA/LOUSA) */
+    .linha-lousa {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      gap: 10px;
+      font-size: 30px;
       font-weight: bold;
-      border-radius: 8px;
+      margin: 15px 0;
     }
 
-    .caixa-silaba.preenchida { background-color: #dfe6e9; color: #2d3436; }
-    .caixa-silaba.vazia { border-style: dashed; color: #ff7675; }
+    .letra-consoante { background-color: #6c5ce7; color: white; padding: 8px 15px; border-radius: 10px; }
+    .letra-vogal { background-color: #ff7675; color: white; padding: 8px 15px; border-radius: 10px; }
+    .resultado-silaba { background-color: #00b894; color: white; padding: 8px 15px; border-radius: 10px; }
 
-    /* OUTROS ESTILOS JÁ EXISTENTES */
-    .linha-silaba { display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 35px; font-weight: bold; margin: 20px 0; }
-    .letra-consoante { background-color: #6c5ce7; color: white; padding: 10px 20px; border-radius: 12px; animation: quicar 1s infinite alternate; }
-    .letra-vogal { background-color: #ff7675; color: white; padding: 10px 20px; border-radius: 12px; }
-    .resultado-silaba { background-color: #00b894; color: white; padding: 10px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    @keyframes quicar { from { transform: translateY(0); } to { transform: translateY(-10px); } }
-    .container-silabas-palavra { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-    .card-silaba-ritmo { background: white; border: 3px solid #6c5ce7; border-radius: 12px; padding: 10px 20px; display: flex; flex-direction: column; align-items: center; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
-    .texto-silaba { font-size: 32px; font-weight: bold; color: #2d3436; }
-    .ponto-ritmo { width: 20px; height: 20px; border-radius: 50%; margin-top: 8px; }
-    .ponto-verde { background-color: #00b894; }
-    .ponto-azul { background-color: #0984e3; }
-    .ponto-vermelho { background-color: #d63031; }
-    .grid-figuras-palavra { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-    .card-figura { background: white; border: 3px solid #dfe6e9; border-radius: 12px; padding: 15px; font-size: 50px; cursor: pointer; transition: all 0.2s; }
-    .grid-alfabeto { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-top: 15px; padding: 10px; }
-    .card-alfabeto { background-color: #74b9ff; color: white; font-size: 28px; font-weight: bold; padding: 15px 5px; border-radius: 12px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.1); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .baloes-container { display: flex; justify-content: space-around; align-items: center; min-height: 140px; margin-top: 15px; }
-    .balao { width: 75px; height: 95px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: white; cursor: pointer; box-shadow: inset -8px -8px 0 rgba(0,0,0,0.15); animation: flutuar 2s infinite ease-in-out alternate; transition: transform 0.2s; }
-    .grid-numeros { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; margin-top: 15px; max-height: 400px; overflow-y: auto; padding: 10px; }
-    .card-numero { background-color: #55efc4; color: #2d3436; font-size: 18px; font-weight: bold; padding: 10px; border-radius: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .tabela-silabario { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    .tabela-silabario th, .tabela-silabario td { border: 2px solid #dfe6e9; padding: 8px; text-align: center; font-size: 16px; font-weight: bold; }
-    .tabela-silabario td { cursor: pointer; transition: all 0.2s; }
-    .mensagem { font-size: 20px; font-weight: bold; margin-top: 15px; min-height: 28px; }
-    .btn-proximo { font-size: 16px; padding: 8px 14px; margin-top: 12px; background-color: #0984e3; color: white; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+    /* ESTILOS ESTOURAR BALÃO */
+    .baloes-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      min-height: 130px;
+      margin-top: 15px;
+    }
+
+    .balao {
+      width: 70px;
+      height: 90px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: inset -6px -6px 0 rgba(0,0,0,0.15);
+      animation: flutuar 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes flutuar {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-12px); }
+    }
+
+    /* ESTILOS COORDENAÇÃO MOTOR */
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 360px;
+      margin: 0 auto;
+      background: white;
+      border: 3px solid #6c5ce7;
+      border-radius: 12px;
+      touch-action: none;
+      overflow: hidden;
+    }
+
+    #canvas-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+    .bg-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; flex-direction: column; justify-content: space-around; padding: 10px 15px; box-sizing: border-box; pointer-events: none; }
+    .linha-coord { display: flex; justify-content: space-between; align-items: center; height: 60px; font-size: 35px; }
+
+    /* ESTILOS GERAIS */
+    .display-palavra-silaba { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .figura-grande { font-size: 65px; }
+    .caixas-silabas { display: flex; gap: 8px; justify-content: center; }
+    .caixa-silaba { width: 65px; height: 65px; border: 3px solid #2d3436; background: white; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; border-radius: 8px; }
+    .caixa-silaba.preenchida { background-color: #dfe6e9; }
+    .caixa-silaba.vazia { border-style: dashed; color: #ff7675; }
+    .grid-alfabeto { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 8px; }
+    .card-alfabeto { background-color: #74b9ff; color: white; font-size: 22px; font-weight: bold; padding: 10px 2px; border-radius: 8px; cursor: pointer; }
+    .grid-numeros { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 6px; max-height: 320px; overflow-y: auto; }
+    .card-numero { background-color: #55efc4; font-size: 15px; font-weight: bold; padding: 8px; border-radius: 8px; cursor: pointer; }
+    .mensagem { font-size: 17px; font-weight: bold; margin-top: 10px; min-height: 25px; }
+    .btn-proximo { font-size: 15px; padding: 8px 14px; margin-top: 10px; background-color: #0984e3; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    .opcoes-grid { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -219,7 +233,27 @@
   </div>
 
   <div id="tela-menu" class="menu-grid">
-    <div class="card-jogo" onclick="abrirAtividade('qual-silaba', 'Qual é a Sílaba? Olhe o desenho e complete as sílabas que faltam!')">
+    <div class="card-jogo" onclick="abrirAtividade('montar-palavras', 'Montar Palavras! Leia as sílabas e clique na figura certa!')">
+      <div class="icone">🍿</div>
+      <div class="titulo">Montar Palavras</div>
+    </div>
+
+    <div class="card-jogo" onclick="abrirAtividade('formar-silabas', 'Formar Sílabas! Junte a consoante com a vogal para ouvir o som!')">
+      <div class="icone">✏️</div>
+      <div class="titulo">Formar Sílabas</div>
+    </div>
+
+    <div class="card-jogo" onclick="abrirAtividade('jogo-balao', 'Estourar Balão! Escute o som e clique no balão certo!')">
+      <div class="icone">🎈</div>
+      <div class="titulo">Estourar Balão</div>
+    </div>
+
+    <div class="card-jogo" onclick="abrirAtividade('coordenacao', 'Coordenação Motora! Leve cada cachorrinho até a sua casinha!')">
+      <div class="icone">🐾</div>
+      <div class="titulo">Coordenação</div>
+    </div>
+
+    <div class="card-jogo" onclick="abrirAtividade('qual-silaba', 'Qual é a Sílaba? Complete as sílabas que faltam!')">
       <div class="icone">💡</div>
       <div class="titulo">Qual é a Sílaba?</div>
     </div>
@@ -229,55 +263,71 @@
       <div class="titulo">Enigma Silábico</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('montar-palavras', 'Junte as sílabas, leia a palavra e escolha a figura!')">
-      <div class="icone">🍿</div>
-      <div class="titulo">Montar Palavras</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('formar-silabas', 'Vamos juntar as letras para formar sílabas!')">
-      <div class="icone">✏️</div>
-      <div class="titulo">Formar Sílabas</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('jogo-balao', 'Jogo dos Balões! Escute a sílaba e estoure o balão!')">
-      <div class="icone">🎈</div>
-      <div class="titulo">Estourar Balão</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('alfabeto', 'Alfabeto Completo! Clique para ouvir as letras!')">
+    <div class="card-jogo" onclick="abrirAtividade('alfabeto', 'Alfabeto Completo!')">
       <div class="icone">🔤</div>
-      <div class="titulo">Alfabeto Completo</div>
+      <div class="titulo">Alfabeto</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('silabario', 'Silabário Completo! Clique para ouvir os sons!')">
-      <div class="icone">📚</div>
-      <div class="titulo">Silabário</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('numeros', 'Números de 1 a 100! Clique para contar!')">
+    <div class="card-jogo" onclick="abrirAtividade('numeros', 'Números de 1 a 100!')">
       <div class="icone">🔢</div>
-      <div class="titulo">Números 1 a 100</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('jogo-letra', 'Qual é a Primeira Letra? Descubra a inicial!')">
-      <div class="icone">🔡</div>
-      <div class="titulo">Primeira Letra</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('jogo-intruso', 'Qual é o Intruso? Encontre quem não pertence!')">
-      <div class="icone">🕵️‍♂️</div>
-      <div class="titulo">Qual é o Intruso?</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('jogo-conta', 'Contas Simples! Conte as figuras e responda!')">
-      <div class="icone">➕</div>
-      <div class="titulo">Contas Simples</div>
+      <div class="titulo">Números 1-100</div>
     </div>
   </div>
 
   <div id="tela-atividade" class="tela-atividade">
     <button class="btn-voltar" onclick="voltarAoMenu()">⬅️ Voltar ao Menu</button>
     <h2 id="titulo-atividade">Atividade</h2>
+
+    <div id="conteudo-montar-palavras" class="conteudo-jogo" style="display:none;">
+      <div class="jogo-box">
+        <div class="container-silabas-ritmo" id="container-silabas-montar"></div>
+        <button class="btn-opcao" onclick="ouvirPalavraMontar()">🔊 Ouvir Palavra</button>
+        <p style="font-weight: bold; margin-top: 15px;">Qual é a figura certa?</p>
+        <div class="grid-figuras-montar" id="grid-figuras-montar"></div>
+        <div class="mensagem" id="msg-montar"></div>
+        <button class="btn-proximo" onclick="proximaPalavraMontar()">Próxima ➔</button>
+      </div>
+    </div>
+
+    <div id="conteudo-formar-silabas" class="conteudo-jogo" style="display:none;">
+      <div class="jogo-box">
+        <div class="linha-lousa">
+          <span class="letra-consoante" id="f-consoante">P</span> +
+          <span class="letra-vogal" id="f-vogal">A</span> =
+          <span class="resultado-silaba" id="f-resultado">?</span>
+        </div>
+        <button class="btn-opcao" onclick="ouvirFormacao()">🔊 Ouvir Som</button>
+        <p style="font-weight: bold; margin-top: 15px;">Qual é o resultado?</p>
+        <div class="opcoes-grid" id="opcoes-formar"></div>
+        <div class="mensagem" id="msg-formar"></div>
+        <button class="btn-proximo" onclick="proximaFormacao()">Próxima ➔</button>
+      </div>
+    </div>
+
+    <div id="conteudo-jogo-balao" class="conteudo-jogo" style="display:none;">
+      <div class="jogo-box">
+        <button class="btn-opcao" style="background-color: #ff7675;" onclick="tocarSomBalao()">🔊 Ouvir Sílaba</button>
+        <div class="baloes-container" id="container-baloes"></div>
+        <div class="mensagem" id="msg-balao"></div>
+        <button class="btn-proximo" onclick="proximoBalao()">Novo Balão ➔</button>
+      </div>
+    </div>
+
+    <div id="conteudo-coordenacao" class="conteudo-jogo" style="display:none;">
+      <p style="font-weight: bold; font-size: 15px;">Cubra o caminho usando o dedo:</p>
+      <div class="canvas-container" id="canvas-container-box">
+        <div class="bg-coord">
+          <div class="linha-coord"><span>🐶</span><span>🏠</span></div>
+          <div class="linha-coord"><span>🐕</span><span>🏡</span></div>
+          <div class="linha-coord"><span>🦮</span><span>🏠</span></div>
+          <div class="linha-coord"><span>🐩</span><span>🏡</span></div>
+        </div>
+        <canvas id="canvas-coord"></canvas>
+      </div>
+      <div class="mensagem" id="msg-coord"></div>
+      <button class="btn-opcao" style="background-color: #ff7675;" onclick="limparCanvas()">🗑️ Limpar Traço</button>
+      <button class="btn-proximo" onclick="concluirCoord()">Concluir! ⭐</button>
+    </div>
 
     <div id="conteudo-qual-silaba" class="conteudo-jogo" style="display:none;">
       <div class="jogo-box" id="box-qual-silaba">
@@ -289,38 +339,31 @@
             <div class="caixa-silaba vazia" id="qs-box2">?</div>
           </div>
         </div>
-        <p style="font-weight: bold; margin-top: 20px;">Escolha as sílabas que faltam:</p>
+        <p style="font-weight: bold; margin-top: 15px;">Escolha a sílaba:</p>
         <div class="opcoes-grid" id="opcoes-qual-silaba"></div>
         <div class="mensagem" id="msg-qual-silaba"></div>
         <button class="btn-proximo" onclick="proximoQualSilaba()">Próximo Desenho ➔</button>
       </div>
     </div>
 
-    <div id="conteudo-alfabeto" class="conteudo-jogo" style="display:none;"><div class="grid-alfabeto" id="container-alfabeto"></div></div>
     <div id="conteudo-enigma" class="conteudo-jogo" style="display:none;">
-      <div class="grid-legenda-enigma" id="legenda-enigma"></div>
-      <div class="jogo-box"><div class="equacao-enigma"><span id="enigma-figura1"></span>+<span id="enigma-figura2"></span>=<span id="enigma-resposta">?</span></div><div class="opcoes-grid" id="opcoes-enigma"></div><div class="mensagem" id="msg-enigma"></div><button class="btn-proximo" onclick="proximoEnigma()">Próximo ➔</button></div>
+      <div class="jogo-box">
+        <div style="font-size: 32px; font-weight: bold; margin-bottom: 10px;">
+          <span id="enigma-figura1">🐝</span> + <span id="enigma-figura2">🍭</span> = <span id="enigma-resposta">?</span>
+        </div>
+        <div class="opcoes-grid" id="opcoes-enigma"></div>
+        <div class="mensagem" id="msg-enigma"></div>
+        <button class="btn-proximo" onclick="proximoEnigma()">Próximo Enigma ➔</button>
+      </div>
     </div>
-    <div id="conteudo-montar-palavras" class="conteudo-jogo" style="display:none;">
-      <div class="jogo-box"><div class="container-silabas-palavra" id="container-silabas-montar"></div><button class="btn-audio" onclick="ouvirPalavraMontada()">🔊 Ouvir Palavra</button><div class="grid-figuras-palavra" id="grid-figuras-montar"></div><div class="mensagem" id="msg-montar"></div><button class="btn-proximo" onclick="proximaPalavraMontar()">Próxima ➔</button></div>
-    </div>
-    <div id="conteudo-formar-silabas" class="conteudo-jogo" style="display:none;">
-      <div class="jogo-box"><div class="linha-silaba"><span class="letra-consoante" id="f-consoante"></span>+<span class="letra-vogal" id="f-vogal"></span>=<span class="resultado-silaba" id="f-resultado">?</span></div><button class="btn-audio" onclick="ouvirFormacao()">🔊 Escutar</button><div class="opcoes-grid" id="opcoes-formar"></div><div class="mensagem" id="msg-formar"></div><button class="btn-proximo" onclick="proximaFormacao()">Próxima ➔</button></div>
-    </div>
-    <div id="conteudo-silabario" class="conteudo-jogo" style="display:none;"><table class="tabela-silabario" id="tabela-silabario-completo"></table></div>
+
+    <div id="conteudo-alfabeto" class="conteudo-jogo" style="display:none;"><div class="grid-alfabeto" id="container-alfabeto"></div></div>
+
     <div id="conteudo-numeros" class="conteudo-jogo" style="display:none;"><div class="grid-numeros" id="container-numeros-100"></div></div>
-    <div id="conteudo-jogo-balao" class="conteudo-jogo" style="display:none;">
-      <div class="jogo-box"><button class="btn-audio" onclick="tocarSomBalao()">🔊</button><div class="baloes-container" id="container-baloes"></div><div class="mensagem" id="msg-balao"></div><button class="btn-proximo" onclick="proximoBalao()">Novo ➔</button></div>
-    </div>
-    <div id="conteudo-jogo-letra" class="conteudo-jogo" style="display:none;">
-      <div class="jogo-box"><div class="palavra-alvo" id="palavra-sem-inicial"></div><div class="opcoes-grid" id="opcoes-letra"></div><div class="mensagem" id="msg-letra"></div><button class="btn-proximo" onclick="proximaLetra()">Próxima ➔</button></div>
-    </div>
-    <div id="conteudo-jogo-intruso" class="conteudo-jogo" style="display:none;"><div class="jogo-box"><div class="opcoes-grid" id="opcoes-intruso"></div><div class="mensagem" id="msg-intruso"></div><button class="btn-proximo" onclick="proximoIntruso()">Próximo ➔</button></div></div>
-    <div id="conteudo-jogo-conta" class="conteudo-jogo" style="display:none;"><div class="jogo-box"><div class="palavra-alvo" id="display-conta"></div><div class="opcoes-grid" id="opcoes-conta"></div><div class="mensagem" id="msg-conta"></div><button class="btn-proximo" onclick="proximaConta()">Próxima ➔</button></div></div>
   </div>
 
   <script>
-    // VOZ NATIVA
+    // VOZ SINTETIZADA
     function falar(texto) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -332,25 +375,11 @@
     }
 
     const pronunciaSilabas = {
-      "BA": "bá", "BE": "bê", "BI": "bi", "BO": "bó", "BU": "bú", "BÃO": "bão",
-      "CA": "cá", "CE": "sê", "CI": "si", "CO": "có", "CU": "cú", "CÃO": "cão",
-      "DA": "dá", "DE": "dê", "DI": "di", "DO": "dó", "DU": "dú", "DÃO": "dão",
-      "FA": "fá", "FE": "fê", "FI": "fi", "FO": "fó", "FU": "fú", "FÃO": "fão",
-      "GA": "gá", "GE": "jê", "GI": "ji", "GO": "gó", "GU": "gú", "GÃO": "gão",
-      "JA": "já", "JE": "jê", "JI": "ji", "JO": "jó", "JU": "jú", "JÃO": "jão",
-      "LA": "lá", "LE": "lê", "LI": "li", "LO": "ló", "LU": "lú", "LÃO": "lão",
-      "MA": "má", "ME": "mê", "MI": "mi", "MO": "mó", "MU": "mú", "MÃO": "mão",
-      "NA": "ná", "NE": "nê", "NI": "ni", "NO": "nó", "NU": "nú", "NÃO": "não",
       "PA": "pá", "PE": "pê", "PI": "pi", "PO": "pó", "PU": "pú", "PÃO": "pão",
-      "RA": "rá", "RE": "rê", "RI": "ri", "RO": "ró", "RU": "rú", "RÃO": "rão",
-      "SA": "sá", "SE": "sê", "SI": "si", "SO": "só", "SU": "sú", "SÃO": "são",
-      "TA": "tá", "TE": "tê", "TI": "ti", "TO": "tó", "TU": "tú", "TÃO": "tão",
-      "VA": "vá", "VE": "vê", "VI": "vi", "VO": "vó", "VU": "vú", "VÃO": "vão",
-      "ZA": "zá", "ZE": "zê", "ZI": "zi", "ZO": "zó", "ZU": "zú", "ZÃO": "zão",
-      "A": "á", "E": "é", "I": "í", "O": "ó", "U": "ú", "ÃO": "ão", "SOU": "sou", "LÉ": "lé"
+      "CA": "cá", "CO": "có", "CU": "cú", "BA": "bá", "BO": "bó", "SA": "sá"
     };
 
-    // PONTUAÇÃO
+    // PONTOS
     let pontos = parseInt(localStorage.getItem('pts') || '0');
     function addPontos(p) {
       pontos += p;
@@ -360,23 +389,219 @@
     }
     addPontos(0);
 
-    // --- LÓGICA DO JOGO: QUAL É A SÍLABA (NOVO) ---
+    // --- MONTAR PALAVRAS (RITMO DE BOLINHAS) ---
+    const dadosMontar = [
+      { silabas: ["PI", "PO", "CA"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "🍿", ops: ["🦊", "👨‍🦰", "🍿"], nome: "Pipoca" },
+      { silabas: ["SA", "PA", "TO"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "👞", ops: ["👞", "💼", "✂️"], nome: "Sapato" },
+      { silabas: ["BA", "NA", "NA"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "🍌", ops: ["🍎", "🍌", "🍇"], nome: "Banana" }
+    ];
+    let idxMontar = 0;
+
+    function carregarMontar() {
+      const item = dadosMontar[idxMontar];
+      const box = document.getElementById('container-silabas-montar');
+      box.innerHTML = '';
+      document.getElementById('msg-montar').innerText = '';
+
+      item.silabas.forEach((sil, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card-silaba-ritmo';
+        card.onclick = () => falar(pronunciaSilabas[sil] || sil);
+        card.innerHTML = `<span class="texto-silaba">${sil}</span><div class="ponto-ritmo" style="background-color: ${item.cores[idx]}"></div>`;
+        box.appendChild(card);
+      });
+
+      const gridFig = document.getElementById('grid-figuras-montar');
+      gridFig.innerHTML = '';
+      item.ops.forEach(fig => {
+        const card = document.createElement('div');
+        card.className = 'card-figura-montar';
+        card.innerText = fig;
+        card.onclick = () => verificarMontar(fig);
+        gridFig.appendChild(card);
+      });
+    }
+
+    function ouvirPalavraMontar() {
+      falar(dadosMontar[idxMontar].nome);
+    }
+
+    function verificarMontar(fig) {
+      const item = dadosMontar[idxMontar];
+      if (fig === item.figuraCerta) {
+        addPontos(15);
+        document.getElementById('msg-montar').innerText = "🎉 Parabéns! Você acertou: " + item.nome;
+        falar("Muito bem! " + item.nome);
+      } else {
+        falar("Tente de novo!");
+      }
+    }
+
+    function proximaPalavraMontar() {
+      idxMontar = (idxMontar + 1) % dadosMontar.length;
+      carregarMontar();
+    }
+
+    // --- FORMAR SÍLABAS (LOUSA PROFESSORA) ---
+    const dadosFormar = [
+      { c: "P", v: "A", res: "PA" },
+      { c: "P", v: "E", res: "PE" },
+      { c: "P", v: "I", res: "PI" },
+      { c: "P", v: "O", res: "PO" },
+      { c: "P", v: "U", res: "PU" },
+      { c: "P", v: "ÃO", res: "PÃO" }
+    ];
+    let idxFormar = 0;
+
+    function carregarFormar() {
+      const item = dadosFormar[idxFormar];
+      document.getElementById('f-consoante').innerText = item.c;
+      document.getElementById('f-vogal').innerText = item.v;
+      document.getElementById('f-resultado').innerText = "?";
+      document.getElementById('msg-formar').innerText = "";
+
+      const container = document.getElementById('opcoes-formar');
+      container.innerHTML = '';
+      let ops = [item.res, "BA", "MA"].sort(() => Math.random() - 0.5);
+
+      ops.forEach(op => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-opcao';
+        btn.innerText = op;
+        btn.onclick = () => verificarFormar(op);
+        container.appendChild(btn);
+      });
+    }
+
+    function ouvirFormacao() {
+      const item = dadosFormar[idxFormar];
+      falar(`${item.c} com ${item.v} faz ${pronunciaSilabas[item.res] || item.res}`);
+    }
+
+    function verificarFormar(op) {
+      const item = dadosFormar[idxFormar];
+      if (op === item.res) {
+        document.getElementById('f-resultado').innerText = op;
+        addPontos(10);
+        document.getElementById('msg-formar').innerText = "🎉 Correto! " + op;
+        falar(pronunciaSilabas[op] || op);
+      } else {
+        falar("Tente de novo");
+      }
+    }
+
+    function proximaFormacao() {
+      idxFormar = (idxFormar + 1) % dadosFormar.length;
+      carregarFormar();
+    }
+
+    // --- ESTOURAR BALÃO ---
+    const baloesSilabas = ["PA", "PE", "PI", "PO", "PU"];
+    let silabaAlvoBalao = "";
+    const coresBalao = ["#ff7675", "#74b9ff", "#55efc4", "#fdcb6e", "#a29bfe"];
+
+    function carregarBalao() {
+      silabaAlvoBalao = baloesSilabas[Math.floor(Math.random() * baloesSilabas.length)];
+      document.getElementById('msg-balao').innerText = "";
+      const container = document.getElementById('container-baloes');
+      container.innerHTML = '';
+
+      let embaralhado = [...baloesSilabas].sort(() => Math.random() - 0.5).slice(0, 3);
+      if (!embaralhado.includes(silabaAlvoBalao)) embaralhado[0] = silabaAlvoBalao;
+      embaralhado.sort(() => Math.random() - 0.5);
+
+      embaralhado.forEach((sil, idx) => {
+        const b = document.createElement('div');
+        b.className = 'balao';
+        b.style.backgroundColor = coresBalao[idx % coresBalao.length];
+        b.innerText = sil;
+        b.onclick = () => {
+          if (sil === silabaAlvoBalao) {
+            addPontos(10);
+            b.style.transform = 'scale(1.3)';
+            b.style.opacity = '0';
+            document.getElementById('msg-balao').innerText = "🎈 POP! Você acertou!";
+            falar("Muito bem! Estourou a sílaba " + (pronunciaSilabas[sil] || sil));
+          } else {
+            falar("Não é esse. Tente de novo!");
+          }
+        };
+        container.appendChild(b);
+      });
+
+      setTimeout(tocarSomBalao, 300);
+    }
+
+    function tocarSomBalao() {
+      falar("Estoure o balão com a sílaba " + (pronunciaSilabas[silabaAlvoBalao] || silabaAlvoBalao));
+    }
+
+    function proximoBalao() {
+      carregarBalao();
+    }
+
+    // --- COORDENAÇÃO MOTORA (CANVAS) ---
+    let canvas, ctx, desenhando = false;
+
+    function iniciarCanvas() {
+      canvas = document.getElementById('canvas-coord');
+      ctx = canvas.getContext('2d');
+      const box = document.getElementById('canvas-container-box');
+      canvas.width = box.clientWidth;
+      canvas.height = box.clientHeight;
+      desenharPontilhados();
+
+      canvas.addEventListener('touchstart', (e) => {
+        desenhando = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }, {passive: false});
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (!desenhando) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#6c5ce7';
+        ctx.lineWidth = 6;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }, {passive: false});
+
+      canvas.addEventListener('touchend', () => desenhando = false);
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function desenharPontilhados() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.setLineDash([8, 8]);
+      ctx.strokeStyle = '#b2bec3';
+      ctx.lineWidth = 3;
+      const h = canvas.height, w = canvas.width;
+      ctx.moveTo(30, h * 0.12); ctx.quadraticCurveTo(w/2, h * 0.2, w - 30, h * 0.35);
+      ctx.moveTo(30, h * 0.38); ctx.quadraticCurveTo(w/2, h * 0.5, w - 30, h * 0.12);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function limparCanvas() { desenharPontilhados(); }
+    function concluirCoord() { addPontos(20); falar("Excelente coordenação!"); }
+
+    // --- QUAL É A SÍLABA ---
     const dadosQualSilaba = [
       { fig: "🍲", silabas: ["PA", "NE", "LA"], nome: "Panela" },
       { fig: "💼", silabas: ["MA", "LE", "TA"], nome: "Maleta" },
-      { fig: "🍅", silabas: ["TO", "MA", "TE"], nome: "Tomate" },
-      { fig: "🍦", silabas: ["PI", "CO", "LÉ"], nome: "Picolé" },
-      { fig: "🍿", silabas: ["PI", "PO", "CA"], nome: "Pipoca" },
-      { fig: "✈️", silabas: ["A", "VI", "ÃO"], nome: "Avião" },
-      { fig: "🧴", silabas: ["PO", "MA", "DA"], nome: "Pomada" },
-      { fig: "🛍️", silabas: ["SA", "CO", "LA"], nome: "Sacola" },
-      { fig: "👞", silabas: ["SA", "PA", "TO"], nome: "Sapato" },
-      { fig: "✂️", silabas: ["TE", "SOU", "RA"], nome: "Tesoura" },
-      { fig: "🚢", silabas: ["NA", "VI", "O"], nome: "Navio" },
-      { fig: "🥨", silabas: ["FI", "VE", "LA"], nome: "Fivela" }
+      { fig: "🍿", silabas: ["PI", "PO", "CA"], nome: "Pipoca" }
     ];
-    let idxQualSilaba = 0;
-    let etapaQualSilaba = 0; // 0 para inicial, 1 para final
+    let idxQualSilaba = 0, etapaQualSilaba = 0;
 
     function carregarQualSilaba() {
       const item = dadosQualSilaba[idxQualSilaba];
@@ -386,7 +611,6 @@
       document.getElementById('qs-box1').innerText = item.silabas[1];
       document.getElementById('qs-box2').innerText = "?";
       document.getElementById('msg-qual-silaba').innerText = "";
-      document.getElementById('box-qual-silaba').style.backgroundColor = '#ffeaa7';
       gerarOpcoesQualSilaba();
     }
 
@@ -394,62 +618,52 @@
       const item = dadosQualSilaba[idxQualSilaba];
       const container = document.getElementById('opcoes-qual-silaba');
       container.innerHTML = '';
-      
       const certa = etapaQualSilaba === 0 ? item.silabas[0] : item.silabas[2];
-      let silabasErradas = ["BA", "CA", "DE", "MI", "FO", "GU", "TA", "RE", "SI"].filter(s => s !== certa);
-      let ops = [certa, silabasErradas[0], silabasErradas[1]].sort(() => Math.random() - 0.5);
+      let ops = [certa, "CA", "TA"].sort(() => Math.random() - 0.5);
 
       ops.forEach(op => {
         const btn = document.createElement('button');
         btn.className = 'btn-opcao';
         btn.innerText = op;
-        btn.onclick = () => verificarQualSilaba(op);
+        btn.onclick = () => {
+          if (op === certa) {
+            falar(pronunciaSilabas[op] || op);
+            if (etapaQualSilaba === 0) {
+              document.getElementById('qs-box0').innerText = op;
+              etapaQualSilaba = 1;
+              gerarOpcoesQualSilaba();
+            } else {
+              document.getElementById('qs-box2').innerText = op;
+              addPontos(15);
+              document.getElementById('msg-qual-silaba').innerText = "🎉 Completo: " + item.nome;
+              setTimeout(() => falar("Muito bem! " + item.nome), 400);
+            }
+          } else {
+            falar("Tente de novo");
+          }
+        };
         container.appendChild(btn);
       });
     }
 
-    function verificarQualSilaba(escolha) {
-      const item = dadosQualSilaba[idxQualSilaba];
-      const certa = etapaQualSilaba === 0 ? item.silabas[0] : item.silabas[2];
+    function proximoQualSilaba() { idxQualSilaba = (idxQualSilaba + 1) % dadosQualSilaba.length; carregarQualSilaba(); }
 
-      if (escolha === certa) {
-        falar(pronunciaSilabas[escolha] || escolha);
-        if (etapaQualSilaba === 0) {
-          document.getElementById('qs-box0').innerText = escolha;
-          document.getElementById('qs-box0').classList.remove('vazia');
-          document.getElementById('qs-box0').classList.add('preenchida');
-          etapaQualSilaba = 1;
-          gerarOpcoesQualSilaba();
-        } else {
-          document.getElementById('qs-box2').innerText = escolha;
-          document.getElementById('qs-box2').classList.remove('vazia');
-          document.getElementById('qs-box2').classList.add('preenchida');
-          addPontos(15);
-          document.getElementById('box-qual-silaba').style.backgroundColor = '#55efc4';
-          document.getElementById('msg-qual-silaba').innerText = "🎉 Parabéns! Você completou: " + item.nome;
-          setTimeout(() => falar("Muito bem! " + item.nome), 500);
-        }
-      } else {
-        document.getElementById('box-qual-silaba').style.backgroundColor = '#ff7675';
-        falar("Tente de novo");
-      }
-    }
+    // ENIGMA
+    function proximoEnigma() { falar("Próximo enigma"); }
 
-    function proximoQualSilaba() {
-      idxQualSilaba = (idxQualSilaba + 1) % dadosQualSilaba.length;
-      document.getElementById('qs-box0').classList.add('vazia');
-      document.getElementById('qs-box2').classList.add('vazia');
-      carregarQualSilaba();
-    }
-
-    // --- OUTRAS FUNÇÕES ---
+    // CONTROLES DE NAVEGAÇÃO
     function abrirAtividade(id, instrucao) {
       document.getElementById('tela-menu').style.display = 'none';
       document.getElementById('tela-atividade').style.display = 'block';
       document.querySelectorAll('.conteudo-jogo').forEach(el => el.style.display = 'none');
       document.getElementById(`conteudo-${id}`).style.display = 'block';
-      if(id === 'qual-silaba') carregarQualSilaba();
-      if(id === 'enigma') carregarEnigma();
+
+      if (id === 'montar-palavras') carregarMontar();
+      if (id === 'formar-silabas') carregarFormar();
+      if (id === 'jogo-balao') carregarBalao();
+      if (id === 'coordenacao') setTimeout(iniciarCanvas, 100);
+      if (id === 'qual-silaba') carregarQualSilaba();
+
       setTimeout(() => falar(instrucao), 300);
     }
 
@@ -459,53 +673,18 @@
       document.getElementById('tela-menu').style.display = 'grid';
     }
 
-    // ALFABETO
+    // CARREGAR ALFABETO E NÚMEROS
     const containerAlfabeto = document.getElementById('container-alfabeto');
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l => {
       const c = document.createElement('div'); c.className = 'card-alfabeto'; c.innerText = l;
       c.onclick = () => falar(l); containerAlfabeto.appendChild(c);
     });
 
-    // NUMEROS
     const container100 = document.getElementById('container-numeros-100');
     for (let i = 1; i <= 100; i++) {
       const n = document.createElement('div'); n.className = 'card-numero'; n.innerText = i;
       n.onclick = () => falar(i.toString()); container100.appendChild(n);
     }
-
-    // SILABARIO
-    const tableS = document.getElementById('tabela-silabario-completo');
-    const cons = ["B","C","D","F","G","J","L","M","N","P","R","S","T","V","Z"];
-    const vogs = ["A","E","I","O","U","ÃO"];
-    let htmlS = "<thead><tr><th></th><th>A</th><th>E</th><th>I</th><th>O</th><th>U</th><th>ÃO</th></tr></thead><tbody>";
-    cons.forEach(c => {
-      htmlS += `<tr><td>${c}</td>` + vogs.map(v => `<td onclick="falar(pronunciaSilabas['${c+v}'] || '${c+v}')">${c+v}</td>`).join("") + "</tr>";
-    });
-    tableS.innerHTML = htmlS + "</tbody>";
-
-    // ENIGMA
-    const listaEnigmas = [
-      { f1: "☀️", f2: "🦋", p: "LANO", ops: ["LANO", "BOTA", "CASA"] },
-      { f1: "🌸", l: "BO", f2: "☀️", p: "BOLA", ops: ["BOLA", "BOCA", "BOLO"] },
-      { f1: "🐝", l: "SA", f2: "🍭", p: "SAPO", ops: ["SAPO", "SACI", "SALA"] }
-    ];
-    let idxEnig = 0;
-    function carregarEnigma() {
-      const item = listaEnigmas[idxEnig];
-      document.getElementById('legenda-enigma').innerHTML = '<div class="item-legenda">☀️ LA</div><div class="item-legenda">🌸 BO</div><div class="item-legenda">🍭 PO</div><div class="item-legenda">🦋 NO</div><div class="item-legenda">🐝 SA</div>';
-      document.getElementById('enigma-figura1').innerText = item.f1;
-      document.getElementById('enigma-figura2').innerText = item.f2;
-      document.getElementById('enigma-resposta').innerText = "?";
-      const opsC = document.getElementById('opcoes-enigma'); opsC.innerHTML = '';
-      item.ops.forEach(op => {
-        const b = document.createElement('button'); b.className = 'btn-opcao'; b.innerText = op;
-        b.onclick = () => { if(op === item.p){ addPontos(15); document.getElementById('enigma-resposta').innerText = op; falar("Muito bem!"); } else { falar("Tente de novo"); } };
-        opsC.appendChild(b);
-      });
-    }
-    function proximoEnigma() { idxEnig = (idxEnig + 1) % listaEnigmas.length; carregarEnigma(); }
-
-    // Inicialização básica (os outros jogos seguem a mesma lógica de carregar/verificar)
   </script>
 </body>
 </html>
