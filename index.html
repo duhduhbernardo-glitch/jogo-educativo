@@ -59,15 +59,15 @@
     }
 
     .card-jogo.destaque {
-      border-color: #6c5ce7;
-      background-color: #f3f0ff;
+      border-color: #ff7675;
+      background-color: #fff0f0;
     }
 
     .card-jogo:active { transform: scale(0.95); }
     .card-jogo .icone { font-size: 38px; margin-bottom: 5px; }
     .card-jogo .titulo { font-size: 15px; font-weight: bold; color: #2d3436; }
 
-    /* TELA DA ATIVIDADE E MODAL */
+    /* TELA DA ATIVIDADE */
     .tela-atividade {
       display: none;
       background: white;
@@ -115,8 +115,34 @@
       margin: 5px;
     }
 
-    /* SELEÇÃO MODO DE JOGO */
-    .box-selecao-modo {
+    /* ESTILOS SILABÁRIO COMPLETO */
+    .tabela-silabario-container {
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .tabela-silabario {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    .tabela-silabario th, .tabela-silabario td {
+      border: 2px solid #74b9ff;
+      padding: 8px 4px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .tabela-silabario th { background-color: #6c5ce7; color: white; }
+    .tabela-silabario td { cursor: pointer; background-color: #f1f2f6; }
+    .tabela-silabario td:active { background-color: #ffeaa7; }
+
+    /* ESTILOS MULTIPLAYER ONLINE */
+    .box-online {
       background-color: #eccc68;
       padding: 15px;
       border-radius: 12px;
@@ -131,114 +157,55 @@
       border-radius: 8px;
       text-transform: uppercase;
     }
-
-    /* JOGO DA VELHA */
-    .grid-velha {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-width: 280px;
-      margin: 15px auto;
-    }
-    .celula-velha {
-      width: 80px; height: 80px;
-      background-color: #ffffff;
-      border: 3px solid #6c5ce7;
-      border-radius: 12px;
-      font-size: 32px; font-weight: bold;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .celula-velha.p1 { background-color: #74b9ff; color: white; }
-    .celula-velha.p2 { background-color: #ff7675; color: white; }
-
-    /* ESTILO XADREZ 3D */
-    .container-xadrez-3d {
-      perspective: 800px;
-      padding: 20px 0;
+    .placar-online {
       display: flex;
-      justify-content: center;
-    }
-
-    .grid-xadrez-3d {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      width: 320px;
-      height: 320px;
-      border: 12px solid #5c3a21;
+      justify-content: space-around;
+      font-weight: bold;
+      font-size: 18px;
+      background: white;
+      padding: 10px;
       border-radius: 8px;
-      transform: rotateX(28deg) rotateZ(0deg);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.5);
-      transform-style: preserve-3d;
-      background-color: #5c3a21;
+      margin-bottom: 15px;
     }
 
-    .casa-xadrez {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      cursor: pointer;
-      user-select: none;
-      position: relative;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .casa-clara { background-color: #f0d9b5; box-shadow: inset 0 0 3px rgba(0,0,0,0.15); }
-    .casa-escura { background-color: #b58863; box-shadow: inset 0 0 3px rgba(0,0,0,0.3); }
-    
-    .casa-xadrez:hover {
-      filter: brightness(1.15);
-    }
-
-    .casa-selecionada {
-      background-color: #55efc4 !important;
-      box-shadow: inset 0 0 10px #00b894 !important;
-    }
-
-    .peca-3d {
-      display: inline-block;
-      transform: rotateX(-28deg) translateY(-4px);
-      filter: drop-shadow(2px 5px 3px rgba(0, 0, 0, 0.4));
-      transition: transform 0.2s ease;
-    }
-
-    .casa-selecionada .peca-3d {
-      transform: rotateX(-28deg) translateY(-10px) scale(1.15);
-    }
-
-    /* SILABÁRIO */
-    .tabela-silabario-container { max-height: 400px; overflow: auto; margin-top: 10px; }
-    .tabela-silabario { width: 100%; border-collapse: collapse; background: white; }
-    .tabela-silabario th, .tabela-silabario td { border: 2px solid #74b9ff; padding: 8px 4px; font-size: 16px; font-weight: bold; text-align: center; }
-    .tabela-silabario th { background-color: #6c5ce7; color: white; }
-    .tabela-silabario td { cursor: pointer; background-color: #f1f2f6; }
-
-    /* OUTROS ESTILOS */
+    /* ESTILOS MONTAR PALAVRAS (RITMO DE BOLINHAS) */
     .container-silabas-ritmo { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
-    .card-silaba-ritmo { background: white; border: 3px solid #6c5ce7; border-radius: 12px; padding: 10px; min-width: 60px; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+    .card-silaba-ritmo {
+      background: white; border: 3px solid #6c5ce7; border-radius: 12px; padding: 10px;
+      min-width: 60px; display: flex; flex-direction: column; align-items: center; cursor: pointer;
+    }
     .texto-silaba { font-size: 26px; font-weight: bold; color: #2d3436; }
     .ponto-ritmo { width: 18px; height: 18px; border-radius: 50%; margin-top: 6px; }
 
     .grid-figuras-montar { display: flex; justify-content: center; gap: 12px; margin-top: 15px; }
     .card-figura-montar { background: white; border: 3px solid #dfe6e9; border-radius: 12px; padding: 10px; font-size: 45px; cursor: pointer; }
 
+    /* ESTILOS FORMAR SÍLABAS */
     .linha-lousa { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 28px; font-weight: bold; margin: 15px 0; }
     .letra-consoante { background-color: #6c5ce7; color: white; padding: 8px 15px; border-radius: 10px; }
     .letra-vogal { background-color: #ff7675; color: white; padding: 8px 15px; border-radius: 10px; }
     .resultado-silaba { background-color: #00b894; color: white; padding: 8px 15px; border-radius: 10px; }
 
+    /* ESTILOS ESTOURAR BALÃO */
     .baloes-container { display: flex; justify-content: space-around; align-items: center; min-height: 130px; margin-top: 15px; }
-    .balao { width: 70px; height: 90px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; cursor: pointer; box-shadow: inset -6px -6px 0 rgba(0,0,0,0.15); animation: flutuar 2s infinite ease-in-out alternate; }
+    .balao {
+      width: 70px; height: 90px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold;
+      color: white; cursor: pointer; box-shadow: inset -6px -6px 0 rgba(0,0,0,0.15);
+      animation: flutuar 2s infinite ease-in-out alternate;
+    }
     @keyframes flutuar { from { transform: translateY(0px); } to { transform: translateY(-12px); } }
 
-    .canvas-container { position: relative; width: 100%; max-width: 320px; height: 360px; margin: 0 auto; background: white; border: 3px solid #6c5ce7; border-radius: 12px; touch-action: none; overflow: hidden; }
+    /* ESTILOS COORDENAÇÃO MOTOR */
+    .canvas-container {
+      position: relative; width: 100%; max-width: 320px; height: 360px; margin: 0 auto;
+      background: white; border: 3px solid #6c5ce7; border-radius: 12px; touch-action: none; overflow: hidden;
+    }
     #canvas-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
     .bg-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; flex-direction: column; justify-content: space-around; padding: 10px 15px; box-sizing: border-box; pointer-events: none; }
     .linha-coord { display: flex; justify-content: space-between; align-items: center; height: 60px; font-size: 35px; }
 
+    /* ESTILOS GERAIS */
     .display-palavra-silaba { display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .figura-grande { font-size: 65px; }
     .caixas-silabas { display: flex; gap: 8px; justify-content: center; }
@@ -264,47 +231,42 @@
   </div>
 
   <div id="tela-menu" class="menu-grid">
-    <div class="card-jogo destaque" onclick="abrirAtividade('jogo-velha', '')">
-      <div class="icone">❌⭕</div>
-      <div class="titulo">Jogo da Velha</div>
+    <div class="card-jogo destaque" onclick="abrirAtividade('multiplayer', 'Modo Família Online! Crie uma sala ou entre com o código!')">
+      <div class="icone">🌐</div>
+      <div class="titulo">Jogar em Família (Online)</div>
     </div>
 
-    <div class="card-jogo destaque" onclick="abrirAtividade('jogo-xadrez', '')">
-      <div class="icone">♟️👑</div>
-      <div class="titulo">Xadrez 3D Infantil</div>
-    </div>
-
-    <div class="card-jogo" onclick="abrirAtividade('silabario', 'Silabário Completo!')">
+    <div class="card-jogo" onclick="abrirAtividade('silabario', 'Silabário Completo! Clique na sílaba para escutar o som!')">
       <div class="icone">📚</div>
-      <div class="titulo">Tabela Silabário</div>
+      <div class="titulo">Tabela do Silabário</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('montar-palavras', 'Montar Palavras!')">
+    <div class="card-jogo" onclick="abrirAtividade('montar-palavras', 'Montar Palavras! Leia as sílabas e clique na figura certa!')">
       <div class="icone">🍿</div>
       <div class="titulo">Montar Palavras</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('formar-silabas', 'Formar Sílabas!')">
+    <div class="card-jogo" onclick="abrirAtividade('formar-silabas', 'Formar Sílabas! Junte a consoante com a vogal para ouvir o som!')">
       <div class="icone">✏️</div>
       <div class="titulo">Formar Sílabas</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('jogo-balao', 'Estourar Balão!')">
+    <div class="card-jogo" onclick="abrirAtividade('jogo-balao', 'Estourar Balão! Escute o som e clique no balão certo!')">
       <div class="icone">🎈</div>
       <div class="titulo">Estourar Balão</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('coordenacao', 'Coordenação Motora!')">
+    <div class="card-jogo" onclick="abrirAtividade('coordenacao', 'Coordenação Motora! Leve cada animalzinho até a sua comida!')">
       <div class="icone">🐾</div>
       <div class="titulo">Coordenação</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('qual-silaba', 'Qual é a Sílaba?')">
+    <div class="card-jogo" onclick="abrirAtividade('qual-silaba', 'Qual é a Sílaba? Complete as sílabas que faltam!')">
       <div class="icone">💡</div>
       <div class="titulo">Qual é a Sílaba?</div>
     </div>
 
-    <div class="card-jogo" onclick="abrirAtividade('enigma', 'Enigma Silábico!')">
+    <div class="card-jogo" onclick="abrirAtividade('enigma', 'Enigma Silábico! Junte os desenhos para descobrir a palavra!')">
       <div class="icone">🧩</div>
       <div class="titulo">Enigma Silábico</div>
     </div>
@@ -324,50 +286,32 @@
     <button class="btn-voltar" onclick="voltarAoMenu()">⬅️ Voltar ao Menu</button>
     <h2 id="titulo-atividade">Atividade</h2>
 
-    <div class="box-selecao-modo" id="box-selecao-modo">
-      <h3>Como deseja jogar? 🎮</h3>
-      <button class="btn-opcao" style="background-color: #00b894;" onclick="iniciarModo('solo')">🤖 Jogar contra o Computador</button>
-      <button class="btn-opcao" style="background-color: #6c5ce7;" onclick="mostrarPainelOnline()">🌐 Jogar Online (Com Parente)</button>
-
-      <div id="painel-online-config" style="display:none; margin-top:15px; border-top: 2px dashed #ffffff; padding-top: 10px;">
-        <p>Um jogador clica em <b>Criar Sala</b> e envia o código para o outro!</p>
-        <button class="btn-opcao" style="background-color: #e17055;" onclick="criarSalaOnline()">➕ Criar Sala</button>
+    <div id="conteudo-multiplayer" class="conteudo-jogo" style="display:none;">
+      <div class="box-online" id="box-conexao">
+        <h3>Desafio Online em Família! ⚔️</h3>
+        <p>Um jogador clica em <b>Criar Sala</b> e fala o código para o outro entrar!</p>
+        <button class="btn-opcao" style="background-color: #00b894;" onclick="criarSalaOnline()">➕ Criar Nova Sala</button>
         <br><br>
         <input type="text" id="codigo-input" class="input-sala" placeholder="CÓDIGO" maxlength="4">
         <button class="btn-opcao" style="background-color: #0984e3;" onclick="entrarSalaOnline()">➡️ Entrar na Sala</button>
-        <div class="mensagem" id="status-conexao-online"></div>
+        <div class="mensagem" id="status-online"></div>
       </div>
-    </div>
 
-    <div id="conteudo-jogo-velha" class="conteudo-jogo" style="display:none;">
-      <div class="mensagem" id="vez-velha">Sua vez! (❌)</div>
-      <div class="grid-velha" id="grid-velha">
-        <div class="celula-velha" onclick="jogarVelha(0)"></div>
-        <div class="celula-velha" onclick="jogarVelha(1)"></div>
-        <div class="celula-velha" onclick="jogarVelha(2)"></div>
-        <div class="celula-velha" onclick="jogarVelha(3)"></div>
-        <div class="celula-velha" onclick="jogarVelha(4)"></div>
-        <div class="celula-velha" onclick="jogarVelha(5)"></div>
-        <div class="celula-velha" onclick="jogarVelha(6)"></div>
-        <div class="celula-velha" onclick="jogarVelha(7)"></div>
-        <div class="celula-velha" onclick="jogarVelha(8)"></div>
-      </div>
-      <button class="btn-proximo" onclick="resetVelha()">Reiniciar Tabuleiro 🔄</button>
-    </div>
-
-    <div id="conteudo-jogo-xadrez" class="conteudo-jogo" style="display:none;">
-      <div class="jogo-box">
-        <p style="font-size: 14px;">Você joga de Brancas! Clique em uma peça para mover!</p>
-        <div class="mensagem" id="msg-xadrez">Sua Vez! ⚪</div>
-        <div class="container-xadrez-3d">
-          <div class="grid-xadrez-3d" id="grid-xadrez"></div>
+      <div id="jogo-online-arena" style="display:none;">
+        <div class="placar-online">
+          <span style="color: #0984e3;">Você: <span id="pts-voce">0</span></span>
+          <span style="color: #d63031;">Oponente: <span id="pts-oponente">0</span></span>
         </div>
-        <button class="btn-proximo" onclick="iniciarXadrez()">Reiniciar Partida 🔄</button>
+        <div class="jogo-box">
+          <button class="btn-opcao" style="background-color: #ff7675;" onclick="tocarSomBalaoOnline()">🔊 Ouvir Sílaba</button>
+          <div class="baloes-container" id="container-baloes-online"></div>
+          <div class="mensagem" id="msg-online"></div>
+        </div>
       </div>
     </div>
 
     <div id="conteudo-silabario" class="conteudo-jogo" style="display:none;">
-      <p style="font-size: 14px; font-weight: bold;">Clique em qualquer sílaba para ouvir!</p>
+      <p style="font-size: 14px; font-weight: bold;">Clique em qualquer sílaba para ouvir o som!</p>
       <div class="tabela-silabario-container">
         <table class="tabela-silabario" id="tabela-silabas-completa"></table>
       </div>
@@ -458,22 +402,38 @@
   </div>
 
   <script>
-    let jogoAtual = "";
-    let eModoOnline = false;
-    let peer = null, conn = null;
+    // DICIONÁRIO DE PRONÚNCIA
+    const pronunciaSilabas = {
+      "PA": "pá", "PE": "pê", "PI": "pi", "PO": "pó", "PU": "pú", "PÃO": "pão",
+      "BA": "bá", "BE": "bé", "BI": "bi", "BO": "bó", "BU": "bú", "BÃO": "bão",
+      "CA": "cá", "CE": "cê", "CI": "si", "CO": "có", "CU": "cú", "CÃO": "cão",
+      "DA": "dá", "DE": "dé", "DI": "di", "DO": "dó", "DU": "dú", "DÃO": "dão",
+      "FA": "fá", "FE": "fé", "FI": "fi", "FO": "fó", "FU": "fú", "FÃO": "fão",
+      "GA": "gá", "GE": "jê", "GI": "ji", "GO": "gó", "GU": "gú", "GÃO": "gão",
+      "JA": "já", "JE": "jé", "JI": "ji", "JO": "jó", "JU": "jú", "JÃO": "jão",
+      "LA": "lá", "LE": "lé", "LI": "li", "LO": "ló", "LU": "lú", "LÃO": "lão",
+      "MA": "má", "ME": "mé", "MI": "mi", "MO": "mó", "MU": "mú", "MÃO": "mão",
+      "NA": "ná", "NE": "né", "NI": "ni", "NO": "nó", "NU": "nú", "NÃO": "não",
+      "RA": "rá", "RE": "ré", "RI": "ri", "RO": "ró", "RU": "rú", "RÃO": "rão",
+      "SA": "sá", "SE": "sé", "SI": "si", "SO": "só", "SU": "sú", "SÃO": "são",
+      "TA": "tá", "TE": "té", "TI": "ti", "TO": "tó", "TU": "tú", "TÃO": "tão",
+      "VA": "vá", "VE": "vé", "VI": "vi", "VO": "vó", "VU": "vú", "VÃO": "vão",
+      "ZA": "zá", "ZE": "zé", "ZI": "zi", "ZO": "zó", "ZU": "zú", "ZÃO": "zão"
+    };
 
-    // AUDIO
+    // VOZ SINTETIZADA
     function falar(texto) {
-      if (!texto) return;
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const msg = new SpeechSynthesisUtterance(texto);
+        let textoAjustado = pronunciaSilabas[texto.toUpperCase()] || texto.toLowerCase();
+        const msg = new SpeechSynthesisUtterance(textoAjustado);
         msg.lang = 'pt-BR';
         msg.rate = 0.85;
         window.speechSynthesis.speak(msg);
       }
     }
 
+    // PONTOS
     let pontos = parseInt(localStorage.getItem('pts') || '0');
     function addPontos(p) {
       pontos += p;
@@ -483,380 +443,410 @@
     }
     addPontos(0);
 
-    // MODO SELEÇÃO E MULTIPLAYER ONLINE
-    function abrirAtividade(id, instrucao) {
-      jogoAtual = id;
-      document.getElementById('tela-menu').style.display = 'none';
-      document.getElementById('tela-atividade').style.display = 'block';
-      document.querySelectorAll('.conteudo-jogo').forEach(el => el.style.display = 'none');
-
-      if (id === 'jogo-velha' || id === 'jogo-xadrez') {
-        document.getElementById('box-selecao-modo').style.display = 'block';
-        document.getElementById('painel-online-config').style.display = 'none';
-        document.getElementById('status-conexao-online').innerText = '';
-      } else {
-        document.getElementById('box-selecao-modo').style.display = 'none';
-        iniciarConteudoJogo(id);
-      }
-
-      if (instrucao) {
-        setTimeout(() => falar(instrucao), 300);
-      }
-    }
-
-    function mostrarPainelOnline() {
-      document.getElementById('painel-online-config').style.display = 'block';
-    }
-
-    function iniciarModo(modo) {
-      eModoOnline = (modo === 'online');
-      document.getElementById('box-selecao-modo').style.display = 'none';
-      iniciarConteudoJogo(jogoAtual);
-    }
+    // --- MODO MULTIPLAYER ONLINE ---
+    let peer = null;
+    let conn = null;
+    let pontosVoce = 0, pontosOponente = 0;
+    let silabaAlvoOnline = "";
+    let souHost = false;
 
     function criarSalaOnline() {
       const codigo = Math.floor(1000 + Math.random() * 9000).toString();
-      document.getElementById('status-conexao-online').innerText = "Criando sala...";
-      peer = new Peer(jogoAtual + '-' + codigo);
+      document.getElementById('status-online').innerText = "Criando sala...";
+      
+      peer = new Peer('aprenda-' + codigo);
+      souHost = true;
 
-      peer.on('open', () => {
-        document.getElementById('status-conexao-online').innerText = `Código: ${codigo}\nEnvie o código para o seu parente entrar!`;
+      peer.on('open', (id) => {
+        document.getElementById('status-online').innerText = `Sua Sala foi Criada! Código: ${codigo}\nPasse o código para a outra pessoa entrar!`;
       });
 
       peer.on('connection', (c) => {
         conn = c;
-        configConexao();
+        configConexaoOnline();
       });
     }
 
     function entrarSalaOnline() {
       const codigo = document.getElementById('codigo-input').value.trim();
       if (!codigo) return alert("Digite o código da sala!");
-      document.getElementById('status-conexao-online').innerText = "Conectando...";
+      
+      document.getElementById('status-online').innerText = "Conectando...";
       peer = new Peer();
 
       peer.on('open', () => {
-        conn = peer.connect(jogoAtual + '-' + codigo);
-        configConexao();
+        conn = peer.connect('aprenda-' + codigo);
+        configConexaoOnline();
       });
     }
 
-    function configConexao() {
+    function configConexaoOnline() {
       conn.on('open', () => {
-        iniciarModo('online');
+        document.getElementById('box-conexao').style.display = 'none';
+        document.getElementById('jogo-online-arena').style.display = 'block';
+        falar("Conectado! Preparar para o jogo!");
+
+        if (souHost) novaRodadaOnline();
       });
 
       conn.on('data', (data) => {
-        if (jogoAtual === 'jogo-velha') receberJogadaVelha(data);
-        if (jogoAtual === 'jogo-xadrez') receberJogadaXadrez(data);
+        if (data.tipo === 'rodada') {
+          silabaAlvoOnline = data.alvo;
+          desenharBaloesOnline(data.opcoes);
+          tocarSomBalaoOnline();
+        } else if (data.tipo === 'ponto') {
+          pontosOponente += 10;
+          document.getElementById('pts-oponente').innerText = pontosOponente;
+          document.getElementById('msg-online').innerText = "Oponente foi mais rápido e acertou!";
+          falar("O oponente acertou!");
+          if (souHost) setTimeout(novaRodadaOnline, 2000);
+        }
       });
     }
 
-    function iniciarConteudoJogo(id) {
+    function novaRodadaOnline() {
+      const ops = [...baloesSilabas].sort(() => Math.random() - 0.5);
+      silabaAlvoOnline = ops[Math.floor(Math.random() * ops.length)];
+      desenharBaloesOnline(ops);
+      tocarSomBalaoOnline();
+
+      conn.send({ tipo: 'rodada', alvo: silabaAlvoOnline, opcoes: ops });
+    }
+
+    function desenharBaloesOnline(opcoes) {
+      document.getElementById('msg-online').innerText = "";
+      const container = document.getElementById('container-baloes-online');
+      container.innerHTML = '';
+
+      opcoes.forEach((sil, idx) => {
+        const b = document.createElement('div');
+        b.className = 'balao';
+        b.style.backgroundColor = coresBalao[idx % coresBalao.length];
+        b.innerText = sil;
+        b.onclick = () => {
+          if (sil === silabaAlvoOnline) {
+            pontosVoce += 10;
+            document.getElementById('pts-voce').innerText = pontosVoce;
+            document.getElementById('msg-online').innerText = "🎉 PONTO SEU! Muito rápido!";
+            falar("Ponto seu!");
+            conn.send({ tipo: 'ponto' });
+            if (souHost) setTimeout(novaRodadaOnline, 2000);
+          } else {
+            falar("Não é esse!");
+          }
+        };
+        container.appendChild(b);
+      });
+    }
+
+    function tocarSomBalaoOnline() {
+      falar("Estoure o balão com a sílaba " + silabaAlvoOnline);
+    }
+
+    // --- TABELA COMPLETA DO SILABÁRIO ---
+    const consoantesSilabario = ["B","C","D","F","G","J","L","M","N","P","R","S","T","V","Z"];
+    const vogaisSilabario = ["A","E","I","O","U","ÃO"];
+
+    function gerarTabelaSilabario() {
+      const tabela = document.getElementById('tabela-silabas-completa');
+      let html = '<tr><th>Consoante</th>';
+      
+      vogaisSilabario.forEach(v => { html += `<th>${v}</th>`; });
+      html += '</tr>';
+
+      consoantesSilabario.forEach(c => {
+        html += `<tr><th>${c}</th>`;
+        vogaisSilabario.forEach(v => {
+          let silaba = c + v;
+          html += `<td onclick="falar('${silaba}')">${silaba}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      tabela.innerHTML = html;
+    }
+    gerarTabelaSilabario();
+
+    // --- MONTAR PALAVRAS (RITMO DE BOLINHAS) ---
+    const dadosMontar = [
+      { silabas: ["PI", "PO", "CA"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "🍿", ops: ["🦊", "🧔", "🍿"], nome: "Pipoca" },
+      { silabas: ["SA", "PA", "TO"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "👞", ops: ["👞", "💼", "✂️"], nome: "Sapato" },
+      { silabas: ["BA", "NA", "NA"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "🍌", ops: ["🍎", "🍌", "🍇"], nome: "Banana" }
+    ];
+    let idxMontar = 0;
+
+    function carregarMontar() {
+      const item = dadosMontar[idxMontar];
+      const box = document.getElementById('container-silabas-montar');
+      box.innerHTML = '';
+      document.getElementById('msg-montar').innerText = '';
+
+      item.silabas.forEach((sil, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card-silaba-ritmo';
+        card.onclick = () => falar(sil);
+        card.innerHTML = `<span class="texto-silaba">${sil}</span><div class="ponto-ritmo" style="background-color: ${item.cores[idx]}"></div>`;
+        box.appendChild(card);
+      });
+
+      const gridFig = document.getElementById('grid-figuras-montar');
+      gridFig.innerHTML = '';
+      item.ops.forEach(fig => {
+        const card = document.createElement('div');
+        card.className = 'card-figura-montar';
+        card.innerText = fig;
+        card.onclick = () => verificarMontar(fig);
+        gridFig.appendChild(card);
+      });
+    }
+
+    function ouvirPalavraMontar() { falar(dadosMontar[idxMontar].nome); }
+    function verificarMontar(fig) {
+      const item = dadosMontar[idxMontar];
+      if (fig === item.figuraCerta) {
+        addPontos(15);
+        document.getElementById('msg-montar').innerText = "🎉 Parabéns! Você acertou: " + item.nome;
+        falar("Muito bem! " + item.nome);
+      } else {
+        falar("Tente de novo!");
+      }
+    }
+    function proximaPalavraMontar() { idxMontar = (idxMontar + 1) % dadosMontar.length; carregarMontar(); }
+
+    // --- FORMAR SÍLABAS ---
+    const dadosFormar = [
+      { c: "P", v: "A", res: "PA" },
+      { c: "P", v: "E", res: "PE" },
+      { c: "P", v: "I", res: "PI" },
+      { c: "P", v: "O", res: "PO" },
+      { c: "P", v: "U", res: "PU" },
+      { c: "P", v: "ÃO", res: "PÃO" }
+    ];
+    let idxFormar = 0;
+
+    function carregarFormar() {
+      const item = dadosFormar[idxFormar];
+      document.getElementById('f-consoante').innerText = item.c;
+      document.getElementById('f-vogal').innerText = item.v;
+      document.getElementById('f-resultado').innerText = "?";
+      document.getElementById('msg-formar').innerText = "";
+
+      const container = document.getElementById('opcoes-formar');
+      container.innerHTML = '';
+      let ops = [item.res, "BA", "MA"].sort(() => Math.random() - 0.5);
+
+      ops.forEach(op => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-opcao';
+        btn.innerText = op;
+        btn.onclick = () => verificarFormar(op);
+        container.appendChild(btn);
+      });
+    }
+
+    function ouvirFormacao() {
+      const item = dadosFormar[idxFormar];
+      falar(`${item.c} com ${item.v} faz ${pronunciaSilabas[item.res] || item.res}`);
+    }
+
+    function verificarFormar(op) {
+      const item = dadosFormar[idxFormar];
+      if (op === item.res) {
+        document.getElementById('f-resultado').innerText = op;
+        addPontos(10);
+        document.getElementById('msg-formar').innerText = "🎉 Correto! " + op;
+        falar(op);
+      } else {
+        falar("Tente de novo");
+      }
+    }
+    function proximaFormacao() { idxFormar = (idxFormar + 1) % dadosFormar.length; carregarFormar(); }
+
+    // --- ESTOURAR BALÃO ---
+    const baloesSilabas = ["PA", "PE", "PI", "PO", "PU"];
+    let silabaAlvoBalao = "";
+    const coresBalao = ["#ff7675", "#74b9ff", "#55efc4", "#fdcb6e", "#a29bfe"];
+
+    function carregarBalao() {
+      silabaAlvoBalao = baloesSilabas[Math.floor(Math.random() * baloesSilabas.length)];
+      document.getElementById('msg-balao').innerText = "";
+      const container = document.getElementById('container-baloes');
+      container.innerHTML = '';
+
+      let embaralhado = [...baloesSilabas].sort(() => Math.random() - 0.5).slice(0, 3);
+      if (!embaralhado.includes(silabaAlvoBalao)) embaralhado[0] = silabaAlvoBalao;
+      embaralhado.sort(() => Math.random() - 0.5);
+
+      embaralhado.forEach((sil, idx) => {
+        const b = document.createElement('div');
+        b.className = 'balao';
+        b.style.backgroundColor = coresBalao[idx % coresBalao.length];
+        b.innerText = sil;
+        b.onclick = () => {
+          if (sil === silabaAlvoBalao) {
+            addPontos(10);
+            b.style.transform = 'scale(1.3)';
+            b.style.opacity = '0';
+            document.getElementById('msg-balao').innerText = "🎈 POP! Você acertou!";
+            falar("Muito bem! Estourou a sílaba " + sil);
+          } else {
+            falar("Não é esse. Tente de novo!");
+          }
+        };
+        container.appendChild(b);
+      });
+
+      setTimeout(tocarSomBalao, 300);
+    }
+
+    function tocarSomBalao() { falar("Estoure o balão com a sílaba " + silabaAlvoBalao); }
+    function proximoBalao() { carregarBalao(); }
+
+    // --- COORDENAÇÃO MOTORA (CANVAS) ---
+    let canvas, ctx, desenhando = false;
+
+    function iniciarCanvas() {
+      canvas = document.getElementById('canvas-coord');
+      ctx = canvas.getContext('2d');
+      const box = document.getElementById('canvas-container-box');
+      canvas.width = box.clientWidth;
+      canvas.height = box.clientHeight;
+      desenharPontilhados();
+
+      canvas.addEventListener('touchstart', (e) => {
+        desenhando = true; const pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
+      }, {passive: false});
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (!desenhando) return; e.preventDefault();
+        const pos = getPos(e); ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#6c5ce7'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.stroke();
+      }, {passive: false});
+
+      canvas.addEventListener('touchend', () => desenhando = false);
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function desenharPontilhados() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath(); ctx.setLineDash([8, 8]); ctx.strokeStyle = '#b2bec3'; ctx.lineWidth = 3;
+      const h = canvas.height, w = canvas.width;
+      ctx.moveTo(30, h * 0.12); ctx.lineTo(w/2, h * 0.08); ctx.lineTo(w - 30, h * 0.12);
+      ctx.moveTo(30, h * 0.38); ctx.lineTo(w/2, h * 0.38); ctx.lineTo(w - 30, h * 0.38);
+      ctx.moveTo(30, h * 0.62); ctx.quadraticCurveTo(w/2, h * 0.7, w - 30, h * 0.62);
+      ctx.moveTo(30, h * 0.88); ctx.quadraticCurveTo(w/2, h * 0.8, w - 30, h * 0.88);
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+
+    function limparCanvas() { desenharPontilhados(); }
+    function concluirCoord() { addPontos(20); falar("Excelente coordenação!"); }
+
+    // --- QUAL É A SÍLABA ---
+    const dadosQualSilaba = [
+      { fig: "🍲", silabas: ["PA", "NE", "LA"], nome: "Panela" },
+      { fig: "💼", silabas: ["MA", "LE", "TA"], nome: "Maleta" },
+      { fig: "🍿", silabas: ["PI", "PO", "CA"], nome: "Pipoca" }
+    ];
+    let idxQualSilaba = 0, etapaQualSilaba = 0;
+
+    function carregarQualSilaba() {
+      const item = dadosQualSilaba[idxQualSilaba];
+      etapaQualSilaba = 0;
+      document.getElementById('qs-figura').innerText = item.fig;
+      document.getElementById('qs-box0').innerText = "?";
+      document.getElementById('qs-box1').innerText = item.silabas[1];
+      document.getElementById('qs-box2').innerText = "?";
+      document.getElementById('msg-qual-silaba').innerText = "";
+      gerarOpcoesQualSilaba();
+    }
+
+    function gerarOpcoesQualSilaba() {
+      const item = dadosQualSilaba[idxQualSilaba];
+      const container = document.getElementById('opcoes-qual-silaba');
+      container.innerHTML = '';
+      const certa = etapaQualSilaba === 0 ? item.silabas[0] : item.silabas[2];
+      let ops = [certa, "CA", "TA"].sort(() => Math.random() - 0.5);
+
+      ops.forEach(op => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-opcao'; btn.innerText = op;
+        btn.onclick = () => {
+          if (op === certa) {
+            falar(op);
+            if (etapaQualSilaba === 0) {
+              document.getElementById('qs-box0').innerText = op;
+              etapaQualSilaba = 1;
+              gerarOpcoesQualSilaba();
+            } else {
+              document.getElementById('qs-box2').innerText = op;
+              addPontos(15);
+              document.getElementById('msg-qual-silaba').innerText = "🎉 Completo: " + item.nome;
+              setTimeout(() => falar("Muito bem! " + item.nome), 400);
+            }
+          } else { falar("Tente de novo"); }
+        };
+        container.appendChild(btn);
+      });
+    }
+    function proximoQualSilaba() { idxQualSilaba = (idxQualSilaba + 1) % dadosQualSilaba.length; carregarQualSilaba(); }
+
+    // --- ENIGMA SILÁBICO ---
+    const dadosEnigma = [
+      { fig1: "🐝", fig2: "🍭", s1: "SA", s2: "PO", res: "SAPO" },
+      { fig1: "🍎", fig2: "☀️", s1: "MA", s2: "LA", res: "MALA" },
+      { fig1: "🌸", fig2: "☀️", s1: "BO", s2: "LA", res: "BOLA" }
+    ];
+    let idxEnigma = 0;
+
+    function carregarEnigma() {
+      const item = dadosEnigma[idxEnigma];
+      document.getElementById('enigma-figura1').innerText = item.fig1;
+      document.getElementById('enigma-figura2').innerText = item.fig2;
+      document.getElementById('enigma-resposta').innerText = "?";
+      document.getElementById('msg-enigma').innerText = "";
+
+      const container = document.getElementById('opcoes-enigma');
+      container.innerHTML = '';
+      let ops = [item.res, "CASA", "DADO"].sort(() => Math.random() - 0.5);
+
+      ops.forEach(op => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-opcao'; btn.innerText = op;
+        btn.onclick = () => {
+          if (op === item.res) {
+            document.getElementById('enigma-resposta').innerText = op;
+            addPontos(15);
+            document.getElementById('msg-enigma').innerText = "🎉 Acertou: " + op;
+            falar("Muito bem! Descobriu " + op);
+          } else { falar("Tente de novo"); }
+        };
+        container.appendChild(btn);
+      });
+    }
+    function proximoEnigma() { idxEnigma = (idxEnigma + 1) % dadosEnigma.length; carregarEnigma(); }
+
+    // CONTROLES DE NAVEGAÇÃO
+    function abrirAtividade(id, instrucao) {
+      document.getElementById('tela-menu').style.display = 'none';
+      document.getElementById('tela-atividade').style.display = 'block';
+      document.querySelectorAll('.conteudo-jogo').forEach(el => el.style.display = 'none');
       document.getElementById(`conteudo-${id}`).style.display = 'block';
+
       if (id === 'montar-palavras') carregarMontar();
       if (id === 'formar-silabas') carregarFormar();
       if (id === 'jogo-balao') carregarBalao();
       if (id === 'coordenacao') setTimeout(iniciarCanvas, 100);
       if (id === 'qual-silaba') carregarQualSilaba();
       if (id === 'enigma') carregarEnigma();
-      if (id === 'jogo-xadrez') iniciarXadrez();
-      if (id === 'jogo-velha') resetVelha();
+
+      setTimeout(() => falar(instrucao), 300);
     }
-
-    // --- JOGO DA VELHA (CORRIGIDO) ---
-    let tabuleiroVelha = ["","","","","","","","",""];
-    let vezXVelha = true;
-
-    function jogarVelha(index) {
-      // Impede jogada se a casa estiver ocupada ou se for a vez do computador no modo Singleplayer
-      if (tabuleiroVelha[index] !== "") return;
-      if (!vezXVelha && !eModoOnline) return;
-
-      let sim = vezXVelha ? "❌" : "⭕";
-      tabuleiroVelha[index] = sim;
-      vezXVelha = !vezXVelha;
-      renderizarVelha();
-
-      if (eModoOnline && conn) {
-        conn.send({ tipo: 'velha', index, sim, vezXVelha });
-      }
-
-      if (verificarVencedorVelha()) return;
-
-      if (!eModoOnline && !vezXVelha) {
-        setTimeout(jogadaComputadorVelha, 500);
-      }
-    }
-
-    function jogadaComputadorVelha() {
-      let vagas = [];
-      tabuleiroVelha.forEach((val, idx) => { if (val === "") vagas.push(idx); });
-      if (vagas.length === 0) return;
-
-      let escolha = vagas[Math.floor(Math.random() * vagas.length)];
-      tabuleiroVelha[escolha] = "⭕";
-      vezXVelha = true;
-      renderizarVelha();
-      verificarVencedorVelha();
-    }
-
-    function receberJogadaVelha(data) {
-      if (data.tipo === 'velha') {
-        tabuleiroVelha[data.index] = data.sim;
-        vezXVelha = data.vezXVelha;
-        renderizarVelha();
-        verificarVencedorVelha();
-      }
-    }
-
-    function renderizarVelha() {
-      const celulas = document.querySelectorAll('.celula-velha');
-      celulas.forEach((el, i) => {
-        el.innerText = tabuleiroVelha[i];
-        el.className = 'celula-velha';
-        if (tabuleiroVelha[i] === '❌') el.classList.add('p1');
-        if (tabuleiroVelha[i] === '⭕') el.classList.add('p2');
-      });
-      document.getElementById('vez-velha').innerText = vezXVelha ? "Sua vez! (❌)" : "Vez do Computador/Oponente (⭕)...";
-    }
-
-    function verificarVencedorVelha() {
-      const comb = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-      for (let c of comb) {
-        if (tabuleiroVelha[c[0]] && tabuleiroVelha[c[0]] === tabuleiroVelha[c[1]] && tabuleiroVelha[c[0]] === tabuleiroVelha[c[2]]) {
-          let v = tabuleiroVelha[c[0]];
-          let mens = v === '❌' ? "Você Venceu! 🎉" : "Computador Venceu! 🤖";
-          document.getElementById('vez-velha').innerText = mens;
-          if (v === '❌') addPontos(20);
-          return true;
-        }
-      }
-      return false;
-    }
-
-    function resetVelha() {
-      tabuleiroVelha = ["","","","","","","","",""];
-      vezXVelha = true;
-      renderizarVelha();
-    }
-
-    // --- XADREZ INFANTIL 3D (CORRIGIDO) ---
-    let tabuleiroXadrez = [];
-    let selecaoXadrez = null;
-    let vezBrancasXadrez = true;
-
-    const pecasIniciaisXadrez = [
-      ["♜","♞","♝","♛","👑","♝","♞","♜"],
-      ["♟","♟","♟","♟","♟","♟","♟","♟"],
-      ["","","","","","","",""],
-      ["","","","","","","",""],
-      ["","","","","","","",""],
-      ["","","","","","","",""],
-      ["♙","♙","♙","♙","♙","♙","♙","♙"],
-      ["♖","♘","♗","♕","♔","♗","♘","♖"]
-    ];
-
-    const pecasBrancas = ["♖","♘","♗","♕","♔","♙"];
-    const pecasPretas = ["♜","♞","♝","♛","👑","♟"];
-
-    function iniciarXadrez() {
-      tabuleiroXadrez = JSON.parse(JSON.stringify(pecasIniciaisXadrez));
-      selecaoXadrez = null; 
-      vezBrancasXadrez = true;
-      renderizarXadrez();
-    }
-
-    function renderizarXadrez() {
-      const grid = document.getElementById('grid-xadrez');
-      grid.innerHTML = '';
-      document.getElementById('msg-xadrez').innerText = vezBrancasXadrez ? "Sua Vez! ⚪" : "Vez do Computador/Oponente! ⚫";
-
-      for (let r = 0; r < 8; r++) {
-        for (let c = 0; c < 8; c++) {
-          const casa = document.createElement('div');
-          casa.className = `casa-xadrez ${(r + c) % 2 === 1 ? 'casa-escura' : 'casa-clara'}`;
-          if (selecaoXadrez && selecaoXadrez.r === r && selecaoXadrez.c === c) casa.classList.add('casa-selecionada');
-          
-          if (tabuleiroXadrez[r][c] !== "") {
-            const pecaSpan = document.createElement('span');
-            pecaSpan.className = 'peca-3d';
-            pecaSpan.innerText = tabuleiroXadrez[r][c];
-            casa.appendChild(pecaSpan);
-          }
-
-          casa.onclick = () => clicarCasaXadrez(r, c);
-          grid.appendChild(casa);
-        }
-      }
-    }
-
-    function clicarCasaXadrez(r, c) {
-      if (!vezBrancasXadrez && !eModoOnline) return; // Espera a IA jogar
-
-      let pecaClicada = tabuleiroXadrez[r][c];
-
-      if (selecaoXadrez) {
-        // Se clicar em outra peça própria, altera a seleção
-        if (pecasBrancas.includes(pecaClicada)) {
-          selecaoXadrez = { r, c };
-          renderizarXadrez();
-          return;
-        }
-
-        // Mover a peça selecionada
-        tabuleiroXadrez[r][c] = tabuleiroXadrez[selecaoXadrez.r][selecaoXadrez.c];
-        tabuleiroXadrez[selecaoXadrez.r][selecaoXadrez.c] = "";
-        selecaoXadrez = null;
-        vezBrancasXadrez = !vezBrancasXadrez;
-        
-        if (eModoOnline && conn) conn.send({ tipo: 'xadrez', tab: tabuleiroXadrez, vez: vezBrancasXadrez });
-
-        renderizarXadrez();
-
-        // Se for modo Solo, aciona o bot do computador
-        if (!eModoOnline && !vezBrancasXadrez) {
-          setTimeout(jogadaComputadorXadrez, 600);
-        }
-      } else {
-        // Selecionar apenas peças brancas
-        if (pecasBrancas.includes(pecaClicada)) {
-          selecaoXadrez = { r, c };
-          renderizarXadrez();
-        }
-      }
-    }
-
-    function jogadaComputadorXadrez() {
-      let movimentosValidos = [];
-
-      for (let r = 0; r < 8; r++) {
-        for (let c = 0; c < 8; c++) {
-          if (pecasPretas.includes(tabuleiroXadrez[r][c])) {
-            let destinos = [
-              { r: r + 1, c: c },
-              { r: r + 1, c: c + 1 },
-              { r: r + 1, c: c - 1 }
-            ];
-            destinos.forEach(d => {
-              if (d.r >= 0 && d.r < 8 && d.c >= 0 && d.c < 8) {
-                // Não ataca as próprias peças pretas
-                if (!pecasPretas.includes(tabuleiroXadrez[d.r][d.c])) {
-                  movimentosValidos.push({ de: { r, c }, para: d });
-                }
-              }
-            });
-          }
-        }
-      }
-
-      if (movimentosValidos.length > 0) {
-        let mov = movimentosValidos[Math.floor(Math.random() * movimentosValidos.length)];
-        tabuleiroXadrez[mov.para.r][mov.para.c] = tabuleiroXadrez[mov.de.r][mov.de.c];
-        tabuleiroXadrez[mov.de.r][mov.de.c] = "";
-      }
-      
-      vezBrancasXadrez = true;
-      renderizarXadrez();
-    }
-
-    function receberJogadaXadrez(data) {
-      if (data.tipo === 'xadrez') {
-        tabuleiroXadrez = data.tab;
-        vezBrancasXadrez = data.vez;
-        renderizarXadrez();
-      }
-    }
-
-    // --- DEMAIS JOGOS ---
-    const consoantesSilabario = ["B","C","D","F","G","J","L","M","N","P","R","S","T","V","Z"];
-    const vogaisSilabario = ["A","E","I","O","U","ÃO"];
-    function gerarTabelaSilabario() {
-      const tabela = document.getElementById('tabela-silabas-completa');
-      let html = '<tr><th>Consoante</th>';
-      vogaisSilabario.forEach(v => html += `<th>${v}</th>`);
-      html += '</tr>';
-      consoantesSilabario.forEach(c => {
-        html += `<tr><th>${c}</th>`;
-        vogaisSilabario.forEach(v => { let sil = c + v; html += `<td onclick="falar('${sil}')">${sil}</td>`; });
-        html += '</tr>';
-      });
-      tabela.innerHTML = html;
-    }
-    gerarTabelaSilabario();
-
-    const dadosMontar = [{ silabas: ["PI", "PO", "CA"], cores: ["#00b894", "#0984e3", "#d63031"], figuraCerta: "🍿", ops: ["🦊", "🧔", "🍿"], nome: "Pipoca" }];
-    let idxMontar = 0;
-    function carregarMontar() {
-      const item = dadosMontar[idxMontar];
-      const box = document.getElementById('container-silabas-montar'); box.innerHTML = '';
-      item.silabas.forEach((sil, idx) => {
-        const card = document.createElement('div'); card.className = 'card-silaba-ritmo'; card.onclick = () => falar(sil);
-        card.innerHTML = `<span class="texto-silaba">${sil}</span><div class="ponto-ritmo" style="background-color: ${item.cores[idx]}"></div>`;
-        box.appendChild(card);
-      });
-      const gridFig = document.getElementById('grid-figuras-montar'); gridFig.innerHTML = '';
-      item.ops.forEach(fig => {
-        const card = document.createElement('div'); card.className = 'card-figura-montar'; card.innerText = fig;
-        card.onclick = () => { if (fig === item.figuraCerta) { addPontos(15); falar("Muito bem!"); } };
-        gridFig.appendChild(card);
-      });
-    }
-    function ouvirPalavraMontar() { falar(dadosMontar[idxMontar].nome); }
-    function proximaPalavraMontar() { carregarMontar(); }
-
-    const dadosFormar = [{ c: "P", v: "A", res: "PA" }];
-    let idxFormar = 0;
-    function carregarFormar() {
-      const item = dadosFormar[idxFormar];
-      document.getElementById('f-consoante').innerText = item.c; document.getElementById('f-vogal').innerText = item.v;
-      const container = document.getElementById('opcoes-formar'); container.innerHTML = '';
-      [item.res, "BA", "MA"].forEach(op => {
-        const btn = document.createElement('button'); btn.className = 'btn-opcao'; btn.innerText = op;
-        btn.onclick = () => { if (op === item.res) { addPontos(10); falar("Correto! " + op); } };
-        container.appendChild(btn);
-      });
-    }
-    function ouvirFormacao() { falar("P com A faz PÁ"); }
-    function proximaFormacao() { carregarFormar(); }
-
-    function carregarBalao() {
-      const container = document.getElementById('container-baloes'); container.innerHTML = '';
-      ["PA", "PE", "PI"].forEach(sil => {
-        const b = document.createElement('div'); b.className = 'balao'; b.style.backgroundColor = '#ff7675'; b.innerText = sil;
-        b.onclick = () => { addPontos(10); falar("Muito bem! " + sil); };
-        container.appendChild(b);
-      });
-    }
-    function tocarSomBalao() { falar("Estoure o balão com a sílaba PÁ"); }
-    function proximoBalao() { carregarBalao(); }
-
-    let canvas, ctx, desenhando = false;
-    function iniciarCanvas() {
-      canvas = document.getElementById('canvas-coord'); ctx = canvas.getContext('2d');
-      const box = document.getElementById('canvas-container-box'); canvas.width = box.clientWidth; canvas.height = box.clientHeight;
-    }
-    function limparCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-    function concluirCoord() { addPontos(20); falar("Excelente!"); }
-
-    function carregarQualSilaba() {
-      document.getElementById('qs-figura').innerText = "🍲";
-      const container = document.getElementById('opcoes-qual-silaba'); container.innerHTML = '';
-      ["PA", "CA"].forEach(op => {
-        const btn = document.createElement('button'); btn.className = 'btn-opcao'; btn.innerText = op;
-        btn.onclick = () => falar(op); container.appendChild(btn);
-      });
-    }
-    function proximoQualSilaba() { carregarQualSilaba(); }
-
-    function carregarEnigma() {
-      const container = document.getElementById('opcoes-enigma'); container.innerHTML = '';
-      ["SAPO", "CASA"].forEach(op => {
-        const btn = document.createElement('button'); btn.className = 'btn-opcao'; btn.innerText = op;
-        btn.onclick = () => falar(op); container.appendChild(btn);
-      });
-    }
-    function proximoEnigma() { carregarEnigma(); }
 
     function voltarAoMenu() {
       window.speechSynthesis.cancel();
@@ -864,6 +854,7 @@
       document.getElementById('tela-menu').style.display = 'grid';
     }
 
+    // CARREGAR ALFABETO E NÚMEROS
     const containerAlfabeto = document.getElementById('container-alfabeto');
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l => {
       const c = document.createElement('div'); c.className = 'card-alfabeto'; c.innerText = l;
