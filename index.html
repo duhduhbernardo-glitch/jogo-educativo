@@ -201,9 +201,26 @@
       position: relative; width: 100%; max-width: 320px; height: 360px; margin: 0 auto;
       background: white; border: 3px solid #6c5ce7; border-radius: 12px; touch-action: none; overflow: hidden;
     }
-    #canvas-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+    #canvas-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; touch-action: none; }
     .bg-coord { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; flex-direction: column; justify-content: space-around; padding: 10px 15px; box-sizing: border-box; pointer-events: none; }
     .linha-coord { display: flex; justify-content: space-between; align-items: center; height: 60px; font-size: 35px; }
+
+    /* ESTILOS JOGO DA COBRINHA (SNAKE ALFABETO) */
+    .snake-container {
+      display: flex; flex-direction: column; align-items: center; margin: 0 auto;
+    }
+    #canvas-snake {
+      background: #2d3436; border: 4px solid #6c5ce7; border-radius: 12px; max-width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .controles-snake {
+      display: grid; grid-template-columns: repeat(3, 60px); gap: 8px; justify-content: center; margin-top: 12px;
+    }
+    .btn-controle {
+      background-color: #6c5ce7; color: white; font-size: 24px; font-weight: bold;
+      border: none; border-radius: 12px; height: 50px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .btn-controle:active { background-color: #a29bfe; transform: scale(0.95); }
 
     /* ESTILOS GERAIS */
     .display-palavra-silaba { display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -234,6 +251,11 @@
     <div class="card-jogo destaque" onclick="abrirAtividade('multiplayer', 'Modo Família Online! Crie uma sala ou entre com o código!')">
       <div class="icone">🌐</div>
       <div class="titulo">Jogar em Família (Online)</div>
+    </div>
+
+    <div class="card-jogo destaque" onclick="abrirAtividade('snake', 'Cobrinha do Alfabeto! Coma as letras em ordem!')">
+      <div class="icone">🐍</div>
+      <div class="titulo">Cobrinha Letras</div>
     </div>
 
     <div class="card-jogo" onclick="abrirAtividade('silabario', 'Silabário Completo! Clique na sílaba para escutar o som!')">
@@ -307,6 +329,23 @@
           <div class="baloes-container" id="container-baloes-online"></div>
           <div class="mensagem" id="msg-online"></div>
         </div>
+      </div>
+    </div>
+
+    <div id="conteudo-snake" class="conteudo-jogo" style="display:none;">
+      <div class="snake-container">
+        <p style="font-weight: bold; font-size: 15px; margin: 5px 0;">Coma a letra <span id="snake-letra-alvo" style="color: #e84393; font-size: 20px;">A</span> em ordem!</p>
+        <canvas id="canvas-snake" width="300" height="300"></canvas>
+        <div class="controles-snake">
+          <div></div>
+          <button class="btn-controle" onclick="mudarDirecaoSnake('UP')">⬆️</button>
+          <div></div>
+          <button class="btn-controle" onclick="mudarDirecaoSnake('LEFT')">⬅️</button>
+          <button class="btn-controle" onclick="mudarDirecaoSnake('DOWN')">⬇️</button>
+          <button class="btn-controle" onclick="mudarDirecaoSnake('RIGHT')">➡️</button>
+        </div>
+        <div class="mensagem" id="msg-snake"></div>
+        <button class="btn-proximo" onclick="reiniciarSnake()">🔄 Recomeçar Jogo</button>
       </div>
     </div>
 
@@ -418,7 +457,11 @@
       "SA": "sá", "SE": "sé", "SI": "si", "SO": "só", "SU": "sú", "SÃO": "são",
       "TA": "tá", "TE": "té", "TI": "ti", "TO": "tó", "TU": "tú", "TÃO": "tão",
       "VA": "vá", "VE": "vé", "VI": "vi", "VO": "vó", "VU": "vú", "VÃO": "vão",
-      "ZA": "zá", "ZE": "zé", "ZI": "zi", "ZO": "zó", "ZU": "zú", "ZÃO": "zão"
+      "ZA": "zá", "ZE": "zé", "ZI": "zi", "ZO": "zó", "ZU": "zú", "ZÃO": "zão",
+      "A": "á", "B": "bê", "C": "cê", "D": "dê", "E": "ê", "F": "efe", "G": "gê",
+      "H": "agá", "I": "i", "J": "jota", "K": "capa", "L": "ele", "M": "eme",
+      "N": "ene", "O": "ô", "P": "pê", "Q": "quê", "R": "erre", "S": "esse",
+      "T": "tê", "U": "u", "V": "vê", "W": "dáblio", "X": "xis", "Y": "ípsilon", "Z": "zê"
     };
 
     // VOZ SINTETIZADA
@@ -442,6 +485,171 @@
       document.getElementById('medalhas').innerText = `🏆 ${Math.floor(pontos/30)}`;
     }
     addPontos(0);
+
+    // CONTROLE DE TELAS
+    function abrirAtividade(idAtividade, titulo) {
+      document.getElementById('tela-menu').style.display = 'none';
+      document.getElementById('tela-atividade').style.display = 'block';
+      document.getElementById('titulo-atividade').innerText = titulo;
+
+      document.querySelectorAll('.conteudo-jogo').forEach(el => el.style.display = 'none');
+      document.getElementById('conteudo-' + idAtividade).style.display = 'block';
+
+      if (idAtividade === 'coordenacao') {
+        setTimeout(iniciarCanvas, 100);
+      } else if (idAtividade === 'snake') {
+        iniciarSnake();
+      } else if (idAtividade === 'montar-palavras') {
+        carregarMontar();
+      } else if (idAtividade === 'formar-silabas') {
+        carregarFormar();
+      } else if (idAtividade === 'jogo-balao') {
+        carregarBalao();
+      } else if (idAtividade === 'qual-silaba') {
+        carregarQualSilaba();
+      } else if (idAtividade === 'enigma') {
+        carregarEnigma();
+      } else if (idAtividade === 'alfabeto') {
+        carregarAlfabeto();
+      } else if (idAtividade === 'numeros') {
+        carregarNumeros();
+      }
+    }
+
+    function voltarAoMenu() {
+      document.getElementById('tela-atividade').style.display = 'none';
+      document.getElementById('tela-menu').style.display = 'grid';
+      if (peer) { peer.destroy(); peer = null; }
+      pararSnake();
+    }
+
+    // --- JOGO DA COBRINHA DO ALFABETO ---
+    const alfabetoLetras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let snakeInterval = null;
+    let snake = [];
+    let direcao = 'RIGHT';
+    let proximaDirecao = 'RIGHT';
+    let indiceLetraAlvo = 0;
+    let comida = { x: 0, y: 0, letra: 'A' };
+    const gridSize = 15;
+    const tileCount = 20; // 20x20 blocos num canvas de 300x300
+
+    function iniciarSnake() {
+      pararSnake();
+      snake = [
+        { x: 5, y: 10 },
+        { x: 4, y: 10 },
+        { x: 3, y: 10 }
+      ];
+      direcao = 'RIGHT';
+      proximaDirecao = 'RIGHT';
+      indiceLetraAlvo = 0;
+      document.getElementById('msg-snake').innerText = "";
+      gerarComidaSnake();
+      falar("Coma a letra A");
+      snakeInterval = setInterval(atualizarSnake, 180);
+    }
+
+    function pararSnake() {
+      if (snakeInterval) clearInterval(snakeInterval);
+      snakeInterval = null;
+    }
+
+    function reiniciarSnake() {
+      iniciarSnake();
+    }
+
+    function mudarDirecaoSnake(novaDir) {
+      if (novaDir === 'UP' && direcao !== 'DOWN') proximaDirecao = 'UP';
+      if (novaDir === 'DOWN' && direcao !== 'UP') proximaDirecao = 'DOWN';
+      if (novaDir === 'LEFT' && direcao !== 'RIGHT') proximaDirecao = 'LEFT';
+      if (novaDir === 'RIGHT' && direcao !== 'LEFT') proximaDirecao = 'RIGHT';
+    }
+
+    function gerarComidaSnake() {
+      if (indiceLetraAlvo >= alfabetoLetras.length) {
+        pararSnake();
+        document.getElementById('msg-snake').innerText = "🎉 PARABÉNS! Você comeu todo o alfabeto!";
+        falar("Parabéns! Você comeu todo o alfabeto!");
+        addPontos(50);
+        return;
+      }
+      comida.letra = alfabetoLetras[indiceLetraAlvo];
+      document.getElementById('snake-letra-alvo').innerText = comida.letra;
+
+      // Posição aleatória garantindo que não caia em cima da cobrinha
+      let posValida = false;
+      while (!posValida) {
+        comida.x = Math.floor(Math.random() * tileCount);
+        comida.y = Math.floor(Math.random() * tileCount);
+        posValida = !snake.some(parte => parte.x === comida.x && parte.y === comida.y);
+      }
+    }
+
+    function atualizarSnake() {
+      direcao = proximaDirecao;
+      let cabeca = { ...snake[0] };
+
+      if (direcao === 'UP') cabeca.y--;
+      if (direcao === 'DOWN') cabeca.y++;
+      if (direcao === 'LEFT') cabeca.x--;
+      if (direcao === 'RIGHT') cabeca.x++;
+
+      // Verificação de colisão com as paredes
+      if (cabeca.x < 0 || cabeca.x >= tileCount || cabeca.y < 0 || cabeca.y >= tileCount) {
+        pararSnake();
+        document.getElementById('msg-snake').innerText = "💥 Ops! Bateu na parede! Tente de novo.";
+        falar("Ops! Tente de novo");
+        return;
+      }
+
+      // Verificação de colisão com o próprio corpo
+      if (snake.some(parte => parte.x === cabeca.x && parte.y === cabeca.y)) {
+        pararSnake();
+        document.getElementById('msg-snake').innerText = "💥 Ops! Bateu no corpinho! Tente de novo.";
+        falar("Ops! Tente de novo");
+        return;
+      }
+
+      snake.unshift(cabeca);
+
+      // Checar se comeu a letra correta
+      if (cabeca.x === comida.x && cabeca.y === comida.y) {
+        falar(comida.letra);
+        addPontos(5);
+        indiceLetraAlvo++;
+        gerarComidaSnake();
+      } else {
+        snake.pop();
+      }
+
+      desenharSnake();
+    }
+
+    function desenharSnake() {
+      const canvas = document.getElementById('canvas-snake');
+      const ctx = canvas.getContext('2d');
+      const tileSize = canvas.width / tileCount;
+
+      // Limpar tela
+      ctx.fillStyle = '#2d3436';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Desenhar Comida (Letra)
+      ctx.font = "bold 20px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#ff7675";
+      ctx.fillText(comida.letra, (comida.x + 0.5) * tileSize, (comida.y + 0.5) * tileSize);
+
+      // Desenhar Cobrinha
+      snake.forEach((parte, idx) => {
+        ctx.fillStyle = idx === 0 ? '#00b894' : '#55efc4';
+        ctx.beginPath();
+        ctx.roundRect(parte.x * tileSize + 1, parte.y * tileSize + 1, tileSize - 2, tileSize - 2, 4);
+        ctx.fill();
+      });
+    }
 
     // --- MODO MULTIPLAYER ONLINE ---
     let peer = null;
@@ -702,46 +910,88 @@
     function tocarSomBalao() { falar("Estoure o balão com a sílaba " + silabaAlvoBalao); }
     function proximoBalao() { carregarBalao(); }
 
-    // --- COORDENAÇÃO MOTORA (CANVAS) ---
-    let canvas, ctx, desenhando = false;
+    // --- COORDENAÇÃO MOTORA (CANVAS CORRIGIDO PARA CELULAR) ---
+    let canvasCoord, ctxCoord, desenhando = false;
 
     function iniciarCanvas() {
-      canvas = document.getElementById('canvas-coord');
-      ctx = canvas.getContext('2d');
+      canvasCoord = document.getElementById('canvas-coord');
+      ctxCoord = canvasCoord.getContext('2d');
       const box = document.getElementById('canvas-container-box');
-      canvas.width = box.clientWidth;
-      canvas.height = box.clientHeight;
+      
+      canvasCoord.width = box.clientWidth;
+      canvasCoord.height = box.clientHeight;
       desenharPontilhados();
 
-      canvas.addEventListener('touchstart', (e) => {
-        desenhando = true; const pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
-      }, {passive: false});
+      const novoCanvas = canvasCoord.cloneNode(true);
+      canvasCoord.parentNode.replaceChild(novoCanvas, canvasCoord);
+      canvasCoord = document.getElementById('canvas-coord');
+      ctxCoord = canvasCoord.getContext('2d');
+      desenharPontilhados();
 
-      canvas.addEventListener('touchmove', (e) => {
-        if (!desenhando) return; e.preventDefault();
-        const pos = getPos(e); ctx.lineTo(pos.x, pos.y);
-        ctx.strokeStyle = '#6c5ce7'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.stroke();
-      }, {passive: false});
+      function getPos(e) {
+        const rect = canvasCoord.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+      }
 
-      canvas.addEventListener('touchend', () => desenhando = false);
-    }
+      canvasCoord.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        desenhando = true;
+        const pos = getPos(e);
+        ctxCoord.beginPath();
+        ctxCoord.moveTo(pos.x, pos.y);
+      }, { passive: false });
 
-    function getPos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return { x: clientX - rect.left, y: clientY - rect.top };
+      canvasCoord.addEventListener('touchmove', (e) => {
+        if (!desenhando) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        ctxCoord.lineTo(pos.x, pos.y);
+        ctxCoord.strokeStyle = '#6c5ce7';
+        ctxCoord.lineWidth = 6;
+        ctxCoord.lineCap = 'round';
+        ctxCoord.stroke();
+      }, { passive: false });
+
+      canvasCoord.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        desenhando = false;
+      }, { passive: false });
+
+      canvasCoord.addEventListener('mousedown', (e) => {
+        desenhando = true;
+        const pos = getPos(e);
+        ctxCoord.beginPath();
+        ctxCoord.moveTo(pos.x, pos.y);
+      });
+
+      canvasCoord.addEventListener('mousemove', (e) => {
+        if (!desenhando) return;
+        const pos = getPos(e);
+        ctxCoord.lineTo(pos.x, pos.y);
+        ctxCoord.strokeStyle = '#6c5ce7';
+        ctxCoord.lineWidth = 6;
+        ctxCoord.lineCap = 'round';
+        ctxCoord.stroke();
+      });
+
+      canvasCoord.addEventListener('mouseup', () => desenhando = false);
     }
 
     function desenharPontilhados() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath(); ctx.setLineDash([8, 8]); ctx.strokeStyle = '#b2bec3'; ctx.lineWidth = 3;
-      const h = canvas.height, w = canvas.width;
-      ctx.moveTo(30, h * 0.12); ctx.lineTo(w/2, h * 0.08); ctx.lineTo(w - 30, h * 0.12);
-      ctx.moveTo(30, h * 0.38); ctx.lineTo(w/2, h * 0.38); ctx.lineTo(w - 30, h * 0.38);
-      ctx.moveTo(30, h * 0.62); ctx.quadraticCurveTo(w/2, h * 0.7, w - 30, h * 0.62);
-      ctx.moveTo(30, h * 0.88); ctx.quadraticCurveTo(w/2, h * 0.8, w - 30, h * 0.88);
-      ctx.stroke(); ctx.setLineDash([]);
+      ctxCoord.clearRect(0, 0, canvasCoord.width, canvasCoord.height);
+      ctxCoord.beginPath(); 
+      ctxCoord.setLineDash([8, 8]); 
+      ctxCoord.strokeStyle = '#b2bec3'; 
+      ctxCoord.lineWidth = 3;
+      const h = canvasCoord.height, w = canvasCoord.width;
+      ctxCoord.moveTo(30, h * 0.12); ctxCoord.lineTo(w/2, h * 0.08); ctxCoord.lineTo(w - 30, h * 0.12);
+      ctxCoord.moveTo(30, h * 0.38); ctxCoord.lineTo(w/2, h * 0.38); ctxCoord.lineTo(w - 30, h * 0.38);
+      ctxCoord.moveTo(30, h * 0.62); ctxCoord.quadraticCurveTo(w/2, h * 0.7, w - 30, h * 0.62);
+      ctxCoord.moveTo(30, h * 0.88); ctxCoord.quadraticCurveTo(w/2, h * 0.8, w - 30, h * 0.88);
+      ctxCoord.stroke(); 
+      ctxCoord.setLineDash([]);
     }
 
     function limparCanvas() { desenharPontilhados(); }
@@ -787,9 +1037,11 @@
               document.getElementById('qs-box2').innerText = op;
               addPontos(15);
               document.getElementById('msg-qual-silaba').innerText = "🎉 Completo: " + item.nome;
-              setTimeout(() => falar("Muito bem! " + item.nome), 400);
+              falar("Muito bem! " + item.nome);
             }
-          } else { falar("Tente de novo"); }
+          } else {
+            falar("Tente de novo");
+          }
         };
         container.appendChild(btn);
       });
@@ -798,22 +1050,21 @@
 
     // --- ENIGMA SILÁBICO ---
     const dadosEnigma = [
-      { fig1: "🐝", fig2: "🍭", s1: "SA", s2: "PO", res: "SAPO" },
-      { fig1: "🍎", fig2: "☀️", s1: "MA", s2: "LA", res: "MALA" },
-      { fig1: "🌸", fig2: "☀️", s1: "BO", s2: "LA", res: "BOLA" }
+      { f1: "🐝", f2: "🍭", res: "BELA", ops: ["BELA", "BOTA", "PATO"], nome: "Bela" },
+      { f1: "🥔", f2: "✈️", res: "BATO", ops: ["BATO", "FOTO", "LATA"], nome: "Bato" }
     ];
     let idxEnigma = 0;
 
     function carregarEnigma() {
       const item = dadosEnigma[idxEnigma];
-      document.getElementById('enigma-figura1').innerText = item.fig1;
-      document.getElementById('enigma-figura2').innerText = item.fig2;
+      document.getElementById('enigma-figura1').innerText = item.f1;
+      document.getElementById('enigma-figura2').innerText = item.f2;
       document.getElementById('enigma-resposta').innerText = "?";
       document.getElementById('msg-enigma').innerText = "";
 
       const container = document.getElementById('opcoes-enigma');
       container.innerHTML = '';
-      let ops = [item.res, "CASA", "DADO"].sort(() => Math.random() - 0.5);
+      let ops = [...item.ops].sort(() => Math.random() - 0.5);
 
       ops.forEach(op => {
         const btn = document.createElement('button');
@@ -822,49 +1073,40 @@
           if (op === item.res) {
             document.getElementById('enigma-resposta').innerText = op;
             addPontos(15);
-            document.getElementById('msg-enigma').innerText = "🎉 Acertou: " + op;
-            falar("Muito bem! Descobriu " + op);
-          } else { falar("Tente de novo"); }
+            document.getElementById('msg-enigma').innerText = "🎉 Acertou! " + item.nome;
+            falar("Parabéns! " + item.nome);
+          } else {
+            falar("Tente de novo");
+          }
         };
         container.appendChild(btn);
       });
     }
     function proximoEnigma() { idxEnigma = (idxEnigma + 1) % dadosEnigma.length; carregarEnigma(); }
 
-    // CONTROLES DE NAVEGAÇÃO
-    function abrirAtividade(id, instrucao) {
-      document.getElementById('tela-menu').style.display = 'none';
-      document.getElementById('tela-atividade').style.display = 'block';
-      document.querySelectorAll('.conteudo-jogo').forEach(el => el.style.display = 'none');
-      document.getElementById(`conteudo-${id}`).style.display = 'block';
-
-      if (id === 'montar-palavras') carregarMontar();
-      if (id === 'formar-silabas') carregarFormar();
-      if (id === 'jogo-balao') carregarBalao();
-      if (id === 'coordenacao') setTimeout(iniciarCanvas, 100);
-      if (id === 'qual-silaba') carregarQualSilaba();
-      if (id === 'enigma') carregarEnigma();
-
-      setTimeout(() => falar(instrucao), 300);
+    // --- ALFABETO ---
+    function carregarAlfabeto() {
+      const container = document.getElementById('container-alfabeto');
+      if (container.children.length > 0) return;
+      const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      letras.forEach(l => {
+        const div = document.createElement('div');
+        div.className = 'card-alfabeto'; div.innerText = l;
+        div.onclick = () => falar(l);
+        container.appendChild(div);
+      });
     }
 
-    function voltarAoMenu() {
-      window.speechSynthesis.cancel();
-      document.getElementById('tela-atividade').style.display = 'none';
-      document.getElementById('tela-menu').style.display = 'grid';
-    }
-
-    // CARREGAR ALFABETO E NÚMEROS
-    const containerAlfabeto = document.getElementById('container-alfabeto');
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(l => {
-      const c = document.createElement('div'); c.className = 'card-alfabeto'; c.innerText = l;
-      c.onclick = () => falar(l); containerAlfabeto.appendChild(c);
-    });
-
-    const container100 = document.getElementById('container-numeros-100');
-    for (let i = 1; i <= 100; i++) {
-      const n = document.createElement('div'); n.className = 'card-numero'; n.innerText = i;
-      n.onclick = () => falar(i.toString()); container100.appendChild(n);
+    // --- NÚMEROS 1-100 ---
+    function carregarNumeros() {
+      const container = document.getElementById('container-numeros-100');
+      if (container.children.length > 0) return;
+      for (let i = 1; i <= 100; i++) {
+        const div = document.createElement('div');
+        div.className = 'card-numero'; div.innerText = i;
+        div.onclick = () => falar(i.toString());
+        container.appendChild(div);
+      }
     }
   </script>
 </body>
