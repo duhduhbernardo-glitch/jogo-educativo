@@ -1,0 +1,19 @@
+{
+  "name": "Lembrete de Remédio e Vacina",
+  "short_name": "Lembrete Saúde",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#dc2626",
+  "description": "Avisa na hora certa, lembra vacinas e consultas, funciona 100% offline",
+  "id": "lembrete-saude-offline",
+  "categories": ["health", "medical", "utilities"],
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2913/2913520.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
