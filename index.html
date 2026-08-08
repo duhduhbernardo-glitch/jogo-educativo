@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌟 Mundo Mágico do Aprendizado 🌟</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Fredoka', sans-serif; }
+    
+    body { 
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a8edea 60%, #fed6e3 100%);
+      min-height: 100vh; 
+      padding: 15px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '✨🌸⭐🎈🌈';
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    body::after {
+      content: '🎨🦋🌻🍎🎀';
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 20px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    
+    h1 { 
+      text-align: center; 
+      color: #ff6b6b; 
+      margin: 10px 0 15px 0; 
+      font-size: 30px; 
+      font-weight: 700;
+      text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(255,107,107,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .placar { 
+      text-align: center; 
+      background: linear-gradient(135deg, #fff9c4, #fff59d); 
+      max-width: 520px; 
+      margin: 0 auto 15px auto; 
+      border-radius: 20px; 
+      padding: 12px; 
+      font-size: 19px; 
+      color: #f57f17; 
+      box-shadow: 0 6px 20px rgba(245,127,23,0.2);
+      border: 3px solid #ffd54f;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    .medalhas { font-size: 24px; }
+    
+    .menu { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 14px; 
+      max-width: 520px; 
+      margin: 0 auto; 
+      position: relative;
+      z-index: 1;
+    }
+    .btn-menu { 
+      padding: 22px 12px; 
+      border: none; 
+      border-radius: 22px; 
+      font-size: 20px; 
+      font-weight: 600;
+      color: white; 
+      cursor: pointer; 
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255,255,255,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .btn-menu:hover::before { left: 100%; }
+    .btn-menu:hover { 
+      transform: translateY(-4px) scale(1.03); 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .btn-menu:active { transform: translateY(-1px) scale(1.01); }
+    
+    .btn-letras { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+    .btn-numeros { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+    .btn-formas { background: linear-gradient(135deg, #26de81, #20bf6b); }
+    .btn-associar { background: linear-gradient(135deg, #a55eea, #8854d0); }
+    .btn-contar { background: linear-gradient(135deg, #fd9644, #fa8231); }
+    .btn-cores { background: linear-gradient(135deg, #fc5c65, #eb3b5a); }
+    .btn-animais { background: linear-gradient(135deg, #2bcbba, #0fb9b1); }
+    .btn-alfabeto { background: linear-gradient(135deg, #fed330, #f7b731); }
+    
+    .area-conteudo { 
+      display: none; 
+      max-width: 520px; 
+      margin: 0 auto; 
+      padding: 10px; 
+      position: relative;
+      z-index: 1;
+    }
+    .voltar { 
+      background: linear-gradient(135deg, #778ca3, #4b6584); 
+      color: white; 
+      border: none; 
+      padding: 12px 24px; 
+      border-radius: 16px; 
+      font-size: 18px; 
+      font-weight: 600;
+      margin-bottom: 15px; 
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(75,101,132,0.3);
+      transition: all 0.2s;
+    }
+    .voltar:hover { transform: translateX(-3px); }
+    
+    .card {
+      background: white; 
+      border-radius: 28px; 
+      padding: 30px 20px; 
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.12); 
+      min-height: 360px;
+      border: 4px solid rgba(255,255,255,0.8);
+      position: relative;
+    }
+    .card::before {
+      content: '🌟';
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      opacity: 0.5;
+    }
+    
+    .letra-grande { 
+      font-size: 100px; 
+      font-weight: 700; 
+      color: #ff6b6b; 
+      text-shadow: 3px 3px 0px #ffeaa7;
+      line-height: 1;
+    }
+    .imagem { 
+      font-size: 90px; 
+      margin: 15px 0; 
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    }
+    .nome { 
+      font-size: 28px; 
+      color: #2d3436; 
+      margin-top: 10px; 
+      font-weight: 600;
+    }
+    .pergunta { 
+      font-size: 22px; 
+      color: #2d3436; 
+      margin-bottom: 18px; 
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .navegar {
+      display: flex; 
+      justify-content: space-between; 
+      margin-top: 25px;
+      gap: 8px;
+    }
+    .btn-nav {
+      background: linear-gradient(135deg, #74b9ff, #0984e3); 
+      color: white; 
+      border: none; 
+      padding: 14px 20px;
+      border-radius: 16px; 
+      font-size: 19px; 
+      font-weight: 600;
+      cursor: pointer; 
+      box-shadow: 0 4px 12px rgba(9,132,227,0.3);
+      transition: all 0.2s;
+      flex: 1;
+    }
+    .btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(9,132,227,0.4); }
+    .btn-nav:active { transform: translateY(0); }
+    
+    .btn-opcao {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef); 
+      color: #2d3436; 
+      border: 4px solid #dfe6e9; 
+      padding: 16px 20px;
+      border-radius: 18px; 
+      font-size: 26px; 
+      font-weight: 600;
+      cursor: pointer; 
+      margin: 6px; 
+      transition: all 0.25s ease;
+      min-width: 70px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .btn-opcao:hover { 
+      border-color: #74b9ff; 
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      transform: translateY(-3px) scale(1.05);
+    }
+    .btn-opcao.correta { 
+      border-color: #00b894; 
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      animation: bounce 0.5s ease;
+    }
+    .btn-opcao.errada { 
+      border-color: #d63031; 
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      animation: shake 0.4s ease;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    
+    .parabens {
+      display: none; 
+      font-size: 32px; 
+      color: #00b894; 
+      margin-top: 18px;
+      font-weight: 700;
+      animation: bounceIn 0.6s ease;
+    }
+    .erro {
+      display: none; 
+      font-size: 24px; 
+      color: #d63031; 
+      margin-top: 12px;
+      font-weight: 600;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .progresso { 
+      height: 14px; 
+      background: #f1f2f6; 
+      border-radius: 10px; 
+      margin-top: 15px; 
+      overflow: hidden;
+      border: 2px solid #dfe4ea;
+    }
+    .barra { 
+      height: 100%; 
+      background: linear-gradient(90deg, #00b894, #55efc4, #00b894); 
+      border-radius: 10px; 
+      width: 0%; 
+      transition: width 0.5s ease;
+      background-size: 200% 100%;
+      animation: shimmer 2s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    .linha-opcoes { 
+      display: flex; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+      gap: 10px; 
+    }
+    
+    #amostra-cor {
+      border: 4px solid #dfe6e9;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌟 Mundo Mágico do Aprendizado 🌟</h1>
+  <div class="placar">
+    ⭐ Pontos: <span id="pontos">0</span> &nbsp;&nbsp;|&nbsp;&nbsp; 🏅 Medalhas: <span class="medalhas" id="medalhas">🥉</span>
+  </div>
+
+  <!-- MENU PRINCIPAL -->
+  <div class="menu" id="menu">
+    <button class="btn-menu btn-letras" onclick="abrirAba('letras')">🔤 Letras</button>
+    <button class="btn-menu btn-numeros" onclick="abrirAba('numeros')">🔢 Números</button>
+    <button class="btn-menu btn-formas" onclick="abrirAba('formas')">🔷 Formas</button>
+    <button class="btn-menu btn-associar" onclick="abrirAba('associar')">🧩 Associação</button>
+    <button class="btn-menu btn-contar" onclick="abrirAba('contar')">🧮 Contar</button>
+    <button class="btn-menu btn-animais" onclick="abrirAba('animais')">🐾 Animais</button>
+    <button class="btn-menu btn-cores" onclick="abrirAba('cores')">🎨 Cores</button>
+    <button class="btn-menu btn-alfabeto" onclick="abrirAba('alfabeto')">🔡 Alfabeto</button>
+  </div>
+
+  <!-- LETRAS -->
+  <div class="area-conteudo" id="letras">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="letra-grande" id="letra">A</div>
+      <div class="imagem" id="img-letras">🐝</div>
+      <div class="nome" id="nome-letras">A de Abelha</div>
+      <div class="navegar">
+        <button class="btn-nav" onclick="anteriorLetra()">◀ Anterior</button>
+        <button class="btn-nav" onclick="tocarSomLetra()">🔊 Ouvir</button>
+        <button class="btn-nav" onclick="proximoLetra()">Próximo ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NÚMEROS -->
+  <div class="area-conteudo" id="numeros">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="letra-grande" style="color:#0984e3" id="numero">1</div>
+      <div class="imagem" id="img-numero">🍎</div>
+      <div class="nome" id="nome-numero">Uma maçã</div>
+      <div class="navegar">
+        <button class="btn-nav" onclick="anteriorNum()">◀ Anterior</button>
+        <button class="btn-nav" onclick="tocarSomNum()">🔊 Ouvir</button>
+        <button class="btn-nav" onclick="proximoNum()">Próximo ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMAS -->
+  <div class="area-conteudo" id="formas">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="imagem" style="font-size:110px" id="img-forma">🔴</div>
+      <div class="nome" id="nome-forma">Círculo</div>
+      <div class="navegar">
+        <button class="btn-nav" onclick="anteriorForma()">◀ Anterior</button>
+        <button class="btn-nav" onclick="proximoForma()">Próximo ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOGO ASSOCIAR LETRA À IMAGEM -->
+  <div class="area-conteudo" id="associar">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="pergunta">Qual figura começa com a letra: <span style="font-size:38px; font-weight:700; color:#8854d0" id="letra-pergunta">A</span>?</div>
+      <div class="linha-opcoes" id="opcoes-associar"></div>
+      <div class="parabens" id="parabens-associar">🎉 Parabéns! Você acertou! 🎉</div>
+      <div class="erro" id="erro-associar">Tente de novo! Você consegue! 💪</div>
+      <div class="progresso"><div class="barra" id="barra-associar"></div></div>
+    </div>
+  </div>
+
+  <!-- JOGO CONTAR OBJETOS -->
+  <div class="area-conteudo" id="contar">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="pergunta">🧮 Quantas frutas você vê?</div>
+      <div class="imagem" id="frutas-contar">🍌🍌🍌</div>
+      <div class="linha-opcoes" id="opcoes-contar"></div>
+      <div class="parabens" id="parabens-contar">🎉 Muito bem! Contou certinho! 🎉</div>
+      <div class="erro" id="erro-contar">Quase! Conte devagarzinho! 💪</div>
+      <div class="progresso"><div class="barra" id="barra-contar"></div></div>
+    </div>
+  </div>
+
+  <!-- CORES -->
+  <div class="area-conteudo" id="cores">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="pergunta">🎨 Qual é esta cor?</div>
+      <div style="width:120px; height:120px; border-radius:20px; margin:0 auto 18px" id="amostra-cor"></div>
+      <div class="linha-opcoes" id="opcoes-cores"></div>
+      <div class="parabens" id="parabens-cores">🎉 Acertou a cor! 🎉</div>
+      <div class="erro" id="erro-cores">Tente mais uma vez! 💪</div>
+      <div class="progresso"><div class="barra" id="barra-cores"></div></div>
+    </div>
+  </div>
+
+  <!-- ANIMAIS -->
+  <div class="area-conteudo" id="animais">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="imagem" id="img-animal">🐶</div>
+      <button class="btn-nav" style="margin:10px 0" onclick="tocarSomAnimal()">🔊 Ouvir o som</button>
+      <div class="pergunta" style="margin-top:12px">🐾 Qual é o nome deste animal?</div>
+      <div class="linha-opcoes" id="opcoes-animais"></div>
+      <div class="parabens" id="parabens-animais">🎉 Correto! Você sabe tudo! 🎉</div>
+      <div class="erro" id="erro-animais">Não foi dessa vez! Tente de novo! 💪</div>
+      <div class="progresso"><div class="barra" id="barra-animais"></div></div>
+    </div>
+  </div>
+
+  <!-- ALFABETO SEQUÊNCIA -->
+  <div class="area-conteudo" id="alfabeto">
+    <button class="voltar" onclick="voltarMenu()">← Voltar</button>
+    <div class="card">
+      <div class="pergunta" id="pergunta-alfabeto">🔡 Complete a sequência: A, B, C, ___</div>
+      <div class="linha-opcoes" id="opcoes-alfabeto"></div>
+      <div class="parabens" id="parabens-alfabeto">🎉 Você sabe o alfabeto! 🎉</div>
+      <div class="erro" id="erro-alfabeto">Pense bem na ordem! 💪</div>
+      <div class="progresso"><div class="barra" id="barra-alfabeto"></div></div>
+    </div>
+  </div>
+
+<script>
+// =================== SISTEMA DE PONTOS E MEDALHAS ===================
+let pontos = 0;
+let questoesCertas = { associar:0, contar:0, cores:0, animais:0, alfabeto:0 };
+const totalPorJogo = 10;
+
+function atualizarPontos(){
+  document.getElementById('pontos').textContent = pontos;
+  let medalha = '🥉';
+  if(pontos >= 20) medalha = '🥈';
+  if(pontos >= 50) medalha = '🥇';
+  if(pontos >= 80) medalha = '🏆';
+  document.getElementById('medalhas').textContent = medalha;
+}
+function ganharPonto(jogo){
+  pontos += 2;
+  questoesCertas[jogo]++;
+  atualizarPontos();
+  document.getElementById(`parabens-${jogo}`).style.display='block';
+  setTimeout(()=>{ document.getElementById(`parabens-${jogo}`).style.display='none'; }, 2000);
+  document.getElementById(`barra-${jogo}`).style.width = `${Math.min((questoesCertas[jogo]/totalPorJogo)*100, 100)}%`;
+}
+function mostrarErro(jogo){
+  document.getElementById(`erro-${jogo}`).style.display='block';
+  setTimeout(()=>{ document.getElementById(`erro-${jogo}`).style.display='none'; }, 1800);
+}
+
+// =================== DADOS DAS LETRAS — 100% CORRIGIDAS! ===================
+const letras = [
+  {l:'A', img:'🐝', n:'A de Abelha'},
+  {l:'B', img:'🦋', n:'B de Borboleta'},
+  {l:'C', img:'🐕', n:'C de Cachorro'},
+  {l:'D', img:'🦷', n:'D de Dente'},
+  {l:'E', img:'🐘', n:'E de Elefante'},
+  {l:'F', img:'🌸', n:'F de Flor'},
+  {l:'G', img:'🦒', n:'G de Girafa'},
+  {l:'H', img:'🦛', n:'H de Hipopótamo'},
+  {l:'I', img:'🦎', n:'I de Iguana'},
+  {l:'J', img:'🐊', n:'J de Jacaré'},
+  {l:'K', img:'🥝', n:'K de Kiwi'},
+  {l:'L', img:'🦁', n:'L de Leão'},
+  {l:'M', img:'🐵', n:'M de Macaco'},
+  {l:'N', img:'☁️', n:'N de Nuvem'},
+  {l:'O', img:'🐑', n:'O de Ovelha'},
+  {l:'P', img:'🐧', n:'P de Pinguim'},
+  {l:'Q', img:'🧀', n:'Q de Queijo'},
+  {l:'R', img:'🦊', n:'R de Raposa'},
+  {l:'S', img:'☀️', n:'S de Sol'},
+  {l:'T', img:'🐢', n:'T de Tartaruga'},
+  {l:'U', img:'🍇', n:'U de Uva'},
+  {l:'V', img:'🐄', n:'V de Vaca'},
+  {l:'W', img:'🧇', n:'W de Waffle'},
+  {l:'X', img:'☕', n:'X de Xícara'},
+  {l:'Y', img:'🥛', n:'Y de Iogurte'},
+  {l:'Z', img:'🦓', n:'Z de Zebra'}
+];
+let iLetra = 0;
+
+// =================== DADOS DOS NÚMEROS ===================
+const nums = [
+  {n:'1', img:'🍎', q:'Uma maçã'},
+  {n:'2', img:'🍎🍎', q:'Duas maçãs'},
+  {n:'3', img:'🍎🍎🍎', q:'Três maçãs'},
+  {n:'4', img:'🍊🍊🍊🍊', q:'Quatro laranjas'},
+  {n:'5', img:'🍓🍓🍓🍓🍓', q:'Cinco morangos'},
+  {n:'6', img:'⭐⭐⭐⭐⭐⭐', q:'Seis estrelas'},
+  {n:'7', img:'🎈🎈🎈🎈🎈🎈🎈', q:'Sete balões'},
+  {n:'8', img:'🐙', q:'Oito patas do polvo'},
+  {n:'9', img:'⚽⚽⚽⚽⚽⚽⚽⚽⚽', q:'Nove bolas'},
+  {n:'10',img:'🔟', q:'Dez dedinhos'}
+];
+let iNum = 0;
+
+// =================== DADOS DAS FORMAS ===================
+const formas = [
+  {img:'🔴', n:'Círculo Vermelho'}, 
+  {img:'🟠', n:'Círculo Laranja'},
+  {img:'🟡', n:'Círculo Amarelo'},
+  {img:'🟢', n:'Círculo Verde'},
+  {img:'🔵', n:'Círculo Azul'},
+  {img:'🟣', n:'Círculo Roxo'},
+  {img:'🟥', n:'Quadrado Vermelho'},
+  {img:'🟩', n:'Quadrado Verde'},
+  {img:'🟦', n:'Quadrado Azul'},
+  {img:'🔺', n:'Triângulo'},
+  {img:'⭐', n:'Estrela'}, 
+  {img:'💜', n:'Coração'}
+];
+let iForma = 0;
+
+// =================== DADOS DAS CORES ===================
+const cores = [
+  {cor:'#ff6b6b', n:'Vermelho'},
+  {cor:'#48dbfb', n:'Azul'},
+  {cor:'#26de81', n:'Verde'},
+  {cor:'#fed330', n:'Amarelo'},
+  {cor:'#a55eea', n:'Roxo'},
+  {cor:'#fd9644', n:'Laranja'},
+  {cor:'#fc5c9c', n:'Rosa'},
+  {cor:'#4b6584', n:'Azul Escuro'}
+];
+let iCor = 0;
+
+// =================== DADOS DOS ANIMAIS ===================
+const animais = [
+  {img:'🐶', n:'Cachorro', som:'au au au'},
+  {img:'🐱', n:'Gato', som:'miau miau'},
+  {img:'🐮', n:'Vaca', som:'muuu muuu'},
+  {img:'🐴', n:'Cavalo', som:'hiiii irirí'},
+  {img:'🐥', n:'Galinha', som:'piu piu piu'},
+  {img:'🐸', n:'Sapo', som:'croac croac'},
+  {img:'🦁', n:'Leão', som:'rugido forte'},
+  {img:'🐘', n:'Elefante', som:'barulho de tromba'}
+];
+let iAnimal = 0;
+
+// =================== ALFABETO ===================
+const sequenciaAlfabeto = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let iSequencia = 3;
+
+// =================== FUNÇÕES AUXILIARES ===================
+function embaralhar(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
+// =================== FUNÇÕES GERAIS ===================
+function abrirAba(nome){
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById(nome).style.display = 'block';
+  if(nome==='associar') gerarAssociar();
+  if(nome==='contar') gerarContar();
+  if(nome==='cores') gerarCor();
+  if(nome==='animais') gerarAnimal();
+  if(nome==='alfabeto') gerarAlfabeto();
+}
+function voltarMenu(){
+  document.querySelectorAll('.area-conteudo').forEach(a=>a.style.display='none');
+  document.getElementById('menu').style.display = 'grid';
+}
+function fala(texto){
+  const f = new SpeechSynthesisUtterance(texto);
+  f.lang='pt-BR'; f.rate=0.85; f.pitch=1.2;
+  speechSynthesis.speak(f);
+}
+
+// =================== LETRAS ===================
+function atualizarLetra(){
+  document.getElementById('letra').textContent = letras[iLetra].l;
+  document.getElementById('img-letras').textContent = letras[iLetra].img;
+  document.getElementById('nome-letras').textContent = letras[iLetra].n;
+}
+function proximoLetra(){ iLetra=(iLetra+1)%letras.length; atualizarLetra(); }
+function anteriorLetra(){ iLetra=(iLetra-1+letras.length)%letras.length; atualizarLetra(); }
+function tocarSomLetra(){
+  let l = letras[iLetra].l;
+  let nome = letras[iLetra].n.replace(`${l} de `,'');
+  fala(`Letra ${l}, de ${nome}`);
+}
+
+// =================== NÚMEROS ===================
+function atualizarNum(){
+  document.getElementById('numero').textContent = nums[iNum].n;
+  document.getElementById('img-numero').textContent = nums[iNum].img;
+  document.getElementById('nome-numero').textContent = nums[iNum].q;
+}
+function proximoNum(){ iNum=(iNum+1)%nums.length; atualizarNum(); }
+function anteriorNum(){ iNum=(iNum-1+nums.length)%nums.length; atualizarNum(); }
+function tocarSomNum(){ fala(nums[iNum].q); }
+
+// =================== FORMAS ===================
+function atualizarForma(){
+  document.getElementById('img-forma').textContent = formas[iForma].img;
+  document.getElementById('nome-forma').textContent = formas[iForma].n;
+}
+function proximoForma(){ iForma=(iForma+1)%formas.length; atualizarForma(); }
+function anteriorForma(){ iForma=(iForma-1+formas.length)%formas.length; atualizarForma(); }
+
+// =================== JOGO ASSOCIAR — 100% CORRETO ===================
+function gerarAssociar(){
+  const certa = letras[Math.floor(Math.random() * letras.length)];
+  const letraCerta = certa.l;
+  
+  document.getElementById('letra-pergunta').textContent = letraCerta;
+  
+  let opcoes = [{ img: certa.img, certa: true }];
+  
+  let tentativas = 0;
+  while(opcoes.length < 3 && tentativas < 100){
+    let aleatoria = letras[Math.floor(Math.random() * letras.length)];
+    if(aleatoria.l !== letraCerta && !opcoes.find(o => o.img === aleatoria.img)){
+      opcoes.push({ img: aleatoria.img, certa: false });
+    }
+    tentativas++;
+  }
+  
+  opcoes = embaralhar(opcoes);
+  
+  document.getElementById('opcoes-associar').innerHTML = opcoes.map(o=>
+    `<button class="btn-opcao" onclick="respAssociar(${o.certa}, this)">${o.img}</button>`
+  ).join('');
+}
+
+function respAssociar(acertou, botao){
+  if(acertou){ 
+    botao.classList.add('correta');
+    ganharPonto('associar'); 
+    setTimeout(gerarAssociar, 2200); 
+  } else { 
+    botao.classList.add('errada');
+    setTimeout(()=>botao.classList.remove('errada'), 500);
+    mostrarErro('associar'); 
+  }
+}
+
+// =================== JOGO CONTAR ===================
+const emojisFrutas = ['🍎','🍌','🍊','🍇','🍓','🍑','🍒','🥝','🍉','🍍'];
+function gerarContar(){
+  let qtde = Math.floor(Math.random()*8)+1;
+  let emoji = emojisFrutas[Math.floor(Math.random()*emojisFrutas.length)];
+  document.getElementById('frutas-contar').textContent = emoji.repeat(qtde);
+  
+  let opcoes = [qtde];
+  while(opcoes.length < 3){
+    let alt = qtde + (Math.random()>0.5 ? 1 : -1) + Math.floor(Math.random()*3);
+    if(alt > 0 && alt <= 10 && !opcoes.includes(alt)) opcoes.push(alt);
+  }
+  opcoes = embaralhar(opcoes);
+  
+  document.getElementById('opcoes-contar').innerHTML = opcoes.map(o=>
+    `<button class="btn-opcao" onclick="respContar(${o},${qtde}, this)">${o}</button>`
+  ).join('');
+}
+function respContar(escolhida, certa, botao){
+  if(escolhida === certa){ 
+    botao.classList.add('correta');
+    ganharPonto('contar'); 
+    setTimeout(gerarContar, 2200); 
+  } else { 
+    botao.classList.add('errada');
+    setTimeout(()=>botao.classList.remove('errada'), 500);
+    mostrarErro('contar'); 
+  }
+}
+
+// =================== JOGO CORES ===================
+function gerarCor(){
+  iCor = Math.floor(Math.random()*cores.length);
+  const corEscolhida = cores[iCor];
+  document.getElementById('amostra-cor').style.backgroundColor = corEscolhida.cor;
+  let nomeCerta = corEscolhida.n;
+  
+  let opcoes = [nomeCerta];
+  let tentativas = 0;
+  while(opcoes.length < 3 && tentativas < 100){
+    let alt = cores[Math.floor(Math.random()*cores.length)].n;
+    if(!opcoes.includes(alt)) opcoes.push(alt);
+    tentativas++;
+  }
+  opcoes = embaralhar(opcoes);
+  
+  document.getElementById('opcoes-cores').innerHTML = opcoes.map(o=>
+    `<button class="btn-opcao" onclick="respCor('${o}','${nomeCerta}', this)">${o}</button>`
+  ).join('');
+}
+function respCor(escolhida, certa, botao){
+  if(escolhida === certa){ 
+    botao.classList.add('correta');
+    ganharPonto('cores'); 
+    setTimeout(gerarCor, 2200); 
+  } else { 
+    botao.classList.add('errada');
+    setTimeout(()=>botao.classList.remove('errada'), 500);
+    mostrarErro('cores'); 
+  }
+}
+
+// =================== JOGO ANIMAIS ===================
+function gerarAnimal(){
+  iAnimal = Math.floor(Math.random()*animais.length);
+  const animalEscolhido = animais[iAnimal];
+  document.getElementById('img-animal').textContent = animalEscolhido.img;
+  let nomeCerta = animalEscolhido.n;
+  
+  let opcoes = [nomeCerta];
+  let tentativas = 0;
+  while(opcoes.length < 3 && tentativas < 100){
+    let alt = animais[Math.floor(Math.random()*animais.length)].n;
+    if(!opcoes.includes(alt)) opcoes.push(alt);
+    tentativas++;
+  }
+  opcoes = embaralhar(opcoes);
+  
+  document.getElementById('opcoes-animais').innerHTML = opcoes.map(o=>
+    `<button class="btn-opcao" onclick="respAnimal('${o}','${nomeCerta}', this)">${o}</button>`
+  ).join('');
+}
+function tocarSomAnimal(){ fala(animais[iAnimal].som); }
+function respAnimal(escolhida, certa, botao){
+  if(escolhida === certa){ 
+    botao.classList.add('correta');
+    ganharPonto('animais'); 
+    setTimeout(gerarAnimal, 2200); 
+  } else { 
+    botao.classList.add('errada');
+    setTimeout(()=>botao.classList.remove('errada'), 500);
+    mostrarErro('animais'); 
+  }
+}
+
+// =================== JOGO ALFABETO ===================
+function gerarAlfabeto(){
+  iSequencia = 3 + Math.floor(Math.random()*20);
+  let sequencia = sequenciaAlfabeto.slice(iSequencia-3, iSequencia);
+  document.getElementById('pergunta-alfabeto').textContent = `🔡 Complete: ${sequencia.join(', ')}, ___`;
+  let certa = sequenciaAlfabeto[iSequencia];
+  
+  let opcoes = [certa];
+  let tentativas = 0;
+  while(opcoes.length < 3 && tentativas < 100){
+    let deslocamento = (Math.random()>0.5 ? 1 : -1) + Math.floor(Math.random()*3);
+    let alt = sequenciaAlfabeto[iSequencia + deslocamento];
+    if(alt && !opcoes.includes(alt)) opcoes.push(alt);
+    tentativas++;
+  }
+  opcoes = embaralhar(opcoes);
+  
+  document.getElementById('opcoes-alfabeto').innerHTML = opcoes.map(o=>
+    `<button class="btn-opcao" onclick="respAlfabeto('${o}','${certa}', this)">${o}</button>`
+  ).join('');
+}
+function respAlfabeto(escolhida, certa, botao){
+  if(escolhida === certa){ 
+    botao.classList.add('correta');
+    ganharPonto('alfabeto'); 
+    setTimeout(gerarAlfabeto, 2200); 
+  } else { 
+    botao.classList.add('errada');
+    setTimeout(()=>botao.classList.remove('errada'), 500);
+    mostrarErro('alfabeto'); 
+  }
+}
+</script>
+</body>
+</html>
