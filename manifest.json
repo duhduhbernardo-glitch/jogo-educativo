@@ -1,0 +1,9 @@
+{
+  "name": "Mundo Mágico do Aprendizado",
+  "short_name": "Aprendizado",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b6b",
+  "icons": []
+}
